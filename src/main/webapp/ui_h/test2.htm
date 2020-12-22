@@ -1,0 +1,118 @@
+
+<!DOCTYPE html>
+<html lang="zh" xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<head>
+	
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="keywords" content="">
+	<meta name="description" content="">
+	<title>翻页记住选择</title>
+	<link rel="shortcut icon" href="favicon.ico">
+	<link href="/ui_h/css/bootstrap.min.css" rel="stylesheet"/>
+	<link href="/ui_h/css/font-awesome.min.css" rel="stylesheet"/>
+	<!-- bootstrap-table 表格插件样式 -->
+	<link href="/ui_h/ajax/libs/bootstrap-table/bootstrap-table.min.css" rel="stylesheet"/>
+	<link href="/ui_h/css/animate.css" rel="stylesheet"/>
+	<link href="/ui_h/css/style.css" rel="stylesheet"/>
+	<link href="/ui_h/bb/css/ry-ui.css" rel="stylesheet"/>
+
+</head>
+<body class="gray-bg">
+     <div class="container-div">
+     	<div class="btn-group-sm" id="toolbar" role="group">
+	        <a class="btn btn-success" onclick="checkItem()">
+	            <i class="fa fa-check"></i> 选中项
+	        </a>
+        </div>
+		<div class="row">
+			<div class="col-sm-12 select-table table-striped">
+				<table id="bootstrap-table"></table>
+			</div>
+		</div>
+	</div>
+    <div>
+	<script src="/ui_h/js/jquery.min.js"></script>
+	<script src="/ui_h/js/bootstrap.min.js"></script>
+	<!-- bootstrap-table 表格插件 -->
+	<script src="/ui_h/ajax/libs/bootstrap-table/bootstrap-table.min.js"></script>
+	<script src="/ui_h/ajax/libs/bootstrap-table/locale/bootstrap-table-zh-CN.min.js"></script>
+	<script src="/ui_h/ajax/libs/bootstrap-table/extensions/mobile/bootstrap-table-mobile.js"></script>
+	<script src="/ui_h/ajax/libs/bootstrap-table/extensions/toolbar/bootstrap-table-toolbar.min.js"></script>
+	<script src="/ui_h/ajax/libs/bootstrap-table/extensions/columns/bootstrap-table-fixed-columns.js"></script>
+	<!-- jquery-validate 表单验证插件 -->
+	<script src="/ui_h/ajax/libs/validate/jquery.validate.min.js"></script>
+	<script src="/ui_h/ajax/libs/validate/messages_zh.min.js"></script>
+	<script src="/ui_h/ajax/libs/validate/jquery.validate.extend.js"></script>
+	<!-- jquery-validate 表单树插件 -->
+	<script src="/ui_h/ajax/libs/bootstrap-treetable/bootstrap-treetable.js"></script>
+	<!-- jquery-export 表格导出插件 -->
+	<script src="/ui_h/ajax/libs/bootstrap-table/extensions/export/bootstrap-table-export.js"></script>
+	<script src="/ui_h/ajax/libs/bootstrap-table/extensions/export/tableExport.js"></script>
+	<!-- 遮罩层 -->
+	<script src="/ui_h/ajax/libs/blockUI/jquery.blockUI.js"></script>
+    <script src="/ui_h/ajax/libs/iCheck/icheck.min.js"></script>
+	<script src="/ui_h/ajax/libs/layer/layer.min.js"></script>
+	<script src="/ui_h/ajax/libs/layui/layui.js"></script>
+	<script src="/ui_h/bb/js/common.js?v=4.1.0"></script>
+	<script src="/ui_h/bb/js/ry-ui.js?v=4.1.0"></script>
+	<script> var ctx = "\/"; </script>
+</div>
+    <script>
+        var prefix = ctx + "demo/table";
+        var datas = [{"searchValue":null,"createBy":"admin","createTime":"2018-03-16 03:33:00","updateBy":null,"updateTime":null,"remark":"\u6B63\u5E38\u72B6\u6001","params":{},"dictCode":6,"dictSort":1,"dictLabel":"\u6B63\u5E38","dictValue":"0","dictType":"sys_normal_disable","cssClass":"","listClass":"primary","isDefault":"Y","status":"0","default":true},{"searchValue":null,"createBy":"admin","createTime":"2018-03-16 03:33:00","updateBy":null,"updateTime":null,"remark":"\u505C\u7528\u72B6\u6001","params":{},"dictCode":7,"dictSort":2,"dictLabel":"\u505C\u7528","dictValue":"1","dictType":"sys_normal_disable","cssClass":"","listClass":"danger","isDefault":"N","status":"0","default":false}];
+
+        $(function() {
+            var options = {
+                url: "http://127.0.0.1:801/grid/query/dicts-m_dic",
+		        rememberSelected: true,
+                columns: [{
+                	field: 'state',
+		            checkbox: true
+		        },
+				{
+					field : 'id', 
+					title : '用户ID'
+				},
+				{
+					field : 'value', 
+					title : '用户编号'
+				},
+				{
+					field : 'name', 
+					title : 'name'
+				},
+				{
+					field : 'object', 
+					title : 'object'
+				},
+				{
+					field : 'field', 
+					title : 'field'
+				}],
+				
+            };
+            
+            options.queryParams = function (params) {
+		        var temp = {   //这里的键的名字和控制器的变量名必须一直，这边改动，控制器也需要改成一样的
+		            rows: params.limit,   //页面大小
+		            page:params.offset/params.limit+1,
+		            
+		            sort: params.sort,
+		            order: params.order
+		        };
+		        return temp;
+		    };
+            
+            $.table.init(options);
+        });
+        
+        // 选中数据
+        function checkItem(){
+        	// var arrays = $.table.selectColumns("userId");
+        	var arrays = $.table.selectColumns("userCode");
+        	alert(arrays);
+        }
+    </script>
+</body>
+</html>

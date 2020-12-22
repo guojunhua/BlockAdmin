@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>表单验证</title>
+     <link href="/favicon.ico" rel="shortcut icon">
+ 	<link href="/ui_h/css/bootstrap.min.css" rel="stylesheet"/>
+	<link href="/ui_h/css/font-awesome.min.css" rel="stylesheet"/>
+	<!-- bootstrap-table 表格插件样式 -->
+	<link href="/ui_h/ajax/libs/bootstrap-table/bootstrap-table.min.css" rel="stylesheet"/>
+	<link href="/ui_h/ajax/libs/bootstrap-treetable1.0/bootstrap-treetable.css" rel="stylesheet"/>
+	<link href="/ui_h/css/animate.css" rel="stylesheet"/>
+	<link href="/ui_h/css/style.css" rel="stylesheet"/>
+	<link href="/ui_h/css/skins.css" rel="stylesheet"/>
+	<link href="/ui_h/bb/css/ry-ui.css" rel="stylesheet"/>
+<!--  	<link href="http://demo.ruoyi.vip/ajax/libs/jquery-ztree/3.5/css/metro/zTreeStyle.css" rel="stylesheet"/> -->
+
+  
+ 	
+
+ 	
+    <!-- 全局js -->
+    <script src="/ui_h/js/jquery.min.js"></script>
+<!--     <script src="/ui_h/ajax/libs/fileinput/js/jquery.min.js"></script> -->
+	<script src="/ui_h/js/bootstrap.min.js"></script>
+	
+
+	<!-- bootstrap-table 表格插件 -->
+	<script src="/ui_h/ajax/libs/bootstrap-table/bootstrap-table.min.js"></script>
+	<script src="/ui_h/ajax/libs/bootstrap-table/locale/bootstrap-table-zh-CN.min.js"></script>
+	<script src="/ui_h/ajax/libs/bootstrap-table/extensions/mobile/bootstrap-table-mobile.js"></script>
+	<script src="/ui_h/ajax/libs/bootstrap-table/extensions/toolbar/bootstrap-table-toolbar.min.js"></script>
+	<script src="/ui_h/ajax/libs/bootstrap-table/extensions/columns/bootstrap-table-fixed-columns.js"></script>
+	<!-- jquery-validate 表单验证插件 -->
+	<script src="/ui_h/ajax/libs/validate/jquery.validate.js"></script>
+<!-- 	<script src="http://static.runoob.com/assets/jquery-validation-1.14.0/dist/jquery.validate.min.js"></script> -->
+	<script src="/ui_h/ajax/libs/validate/messages_zh.min.js"></script>
+	<script src="/ui_h/ajax/libs/validate/jquery.validate.extend.js"></script>
+	
+<!-- 	<script src="/ui_h/ajax/libs/validate/jquery.metadata.js"></script> -->
+	
+	<!-- bootstrap-treetable 表单树插件 -->
+<!-- 	<script src="/ui_h/ajax/libs/bootstrap-treetable/bootstrap-treetable.js"></script> -->
+	<script src="/ui_h/ajax/libs/bootstrap-treetable1.0/bootstrap-treetable.js"></script>
+	<!-- jquery-export 表格导出插件 -->
+	<script src="/ui_h/ajax/libs/bootstrap-table/extensions/export/bootstrap-table-export.js"></script>
+	<script src="/ui_h/ajax/libs/bootstrap-table/extensions/export/tableExport.js"></script>
+	<!-- 遮罩层 -->
+	<script src="/ui_h/ajax/libs/blockUI/jquery.blockUI.js"></script>
+    <script src="/ui_h/ajax/libs/iCheck/icheck.min.js"></script>
+	<script src="/ui_h/ajax/libs/layer/layer.min.js"></script>
+	<script src="/ui_h/ajax/libs/layui/layui.js"></script>
+	<script src="/ui_h/bb/js/common.js?v=4.1.0"></script>
+	<script src="/ui_h/bb/js/ry-ui.js?v=4.1.0"></script>
+<!--    <script src="/ui_h/ry-ui.js?v=4.1.0"></script>  -->
+    
+    
+    <link href="/ui_h/ajax/libs/iCheck/custom.css" rel="stylesheet"/>
+    <link href="/ui_h/ajax/libs/iCheck/icheck-bootstrap.min.css" rel="stylesheet"/>
+	
+ 	<link href="/ui_h/ajax/libs/select2/select2.css" rel="stylesheet"/>
+    <link href="/ui_h/ajax/libs/select2/select2-bootstrap.css" rel="stylesheet"/>
+    
+    <link  href="/ui_h/ajax/libs/switchery/switchery.css" rel="stylesheet"/>
+    <!-- 富文本 summernote -->
+<!--     <link href="/ui_h/ajax/libs/summernote/summernote.css" rel="stylesheet"/> -->
+<!-- 	<link href="/ui_h/ajax/libs/summernote/summernote-bs3.css" rel="stylesheet"/> -->
+<!--  	<link href="/ui_h/css/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css" rel="stylesheet">-->    
+ 	<link href="/ui_h/ajax/libs/bootstrap-fileinput/fileinput.min.css" rel="stylesheet"/>    
+ 	
+<!--  	<link href="/ui_h/ajax/libs/fileinput/css/default.css" rel="stylesheet" type="text/css" > 
+	<link href="/ui_h/ajax/libs/fileinput/css/fileinput.css" rel="stylesheet" type="text/css" />	-->
+ 	
+	<link href="/ui_h/ajax/libs/treeview/bootstrap-treeview.min.css" rel="stylesheet"/>    
+	<link href="/ui_h/ajax/libs/jquery-ztree/3.5/css/metro/zTreeStyle.css" rel="stylesheet"/>
+	<link href="/ui_h/ajax/libs/datapicker/bootstrap-datetimepicker.min.css" rel="stylesheet"/>
+	
+	<!-- 输入框清除控件(和table冲突)  -->
+<!-- 	<link href="/ui_h/ajax/libs/pureClearButton/css/default.css" rel="stylesheet" type="text/css"> -->
+	
+    <!-- 开关  -->
+    <script src="/ui_h/ajax/libs/switchery/switchery.js" type="text/javascript"></script>
+    
+    <!-- 富文本 summernote 
+  	<script src="/ui_h/ajax/libs/summernote/summernote.min.js"></script>
+	<script src="/ui_h/ajax/libs/summernote/summernote-zh-CN.js"></script>-->
+	<!-- 文件上传(图片和文件) -->
+	<script src="/ui_h/ajax/libs/bootstrap-fileinput/fileinput.js"></script>
+	<script src="/ui_h/ajax/libs/bootstrap-fileinput/piexif.min.js"></script>
+    
+   <!--  <script src="/ui_h/ajax/libs/fileinput/js/fileinput.js" type="text/javascript"></script>
+    <script src="/ui_h/ajax/libs/fileinput/js/fileinput_locale_zh.js" type="text/javascript"></script> -->
+    
+    <script src="/ui_h/ajax/libs/select2/select2.js"></script>
+    
+    <!-- treeview -->
+	<script src="/ui_h/ajax/libs/treeview/bootstrap-treeview.min.js"></script>
+	<script src="/ui_h/ajax/libs/jquery-ztree/3.5/js/jquery.ztree.all-3.5.js"></script>
+	
+	<!-- datetimepicker -->
+	<script src="/ui_h/ajax/libs/datapicker/bootstrap-datetimepicker.min.js"></script>
+	
+	
+	<!-- 输入框清除控件  -->
+<!-- 	<script src="/ui_h/ajax/libs/pureClearButton/js/jquery.bootstrap-pureClearButton.js"></script> -->
+	
+	<!-- 进度按钮svg  -->
+	<script src="/ui_h/bb/js/process/iconfont.js"></script>
+	
+        <style>
+.icon {
+  display: block;
+  height: 100px;
+  line-height: 100px;
+  font-size: 42px;
+  margin: 10px auto;
+  color: #333;
+  -webkit-transition: font-size 0.25s linear, width 0.25s linear;
+  -moz-transition: font-size 0.25s linear, width 0.25s linear;
+  transition: font-size 0.25s linear, width 0.25s linear;
+}
+</style>
+    <body>
+            <script type="text/javascript">
+                $().ready(function() {
+                     $("#signupForm").validate({meta: "validate", debug: true});
+                });
+            </script>
+        <form id="signupForm" method="get" action="">
+           <!--  <p>
+                <label for="firstname">Firstname</label>
+                <input id="firstname" name="firstname" class="required" />
+            </p> -->
+         <p>
+          <label for="email">E-Mail</label>
+          <input id="email" name="email" class=" " required=true email=true  />
+         </p>
+         
+          <p>
+          <label for="email">IP</label>
+          <input id="ip" name="ip" class=" " required=#email=='123@qq.com' isIp=true  />
+         </p>
+         
+       <!--   <p>
+          <label for="password">Password</label>
+          <input id="password" name="password" type="password" required minlength=5  />
+         </p>
+         <p>
+          <label for="confirm_password">确认密码</label>
+          <input id="confirm_password" name="confirm_password" type="password" required equalTo='#password'  />
+         </p> -->
+            <p>
+               <svg class="icon" aria-hidden="true" data-toggle="tooltip" data-placement="top" title="这里是提示内容">
+  <use xlink:href="#icon-shenhetongguo"></use>
+</svg>
+ <div class="ibox-content text-center">
+                        <h4>工具提示示例 <small>深色背景</small></h4>
+                        <div class="tooltip-demo">
+                            <button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="left" title="这里是提示内容">左侧提示</button>
+                            <button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="top" title="这里是提示内容">顶部提示</button>
+                            <button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="bottom" title="这里是提示内容">底部提示</button>
+                            <button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="right" title="这里是提示内容">右侧提示</button>
+                        </div>
+                        <br>
+                        <h4>工具提示 - 单击提示</h4>
+                        <div class="tooltip-demo">
+                            <button type="button" class="btn btn-primary" data-container="body" data-toggle="popover" data-placement="left" data-content="这里是提示内容">
+                                左侧提示
+                            </button>
+                            <button type="button" class="btn btn-primary" data-container="body" data-toggle="popover" data-placement="top" data-content="这里是提示内容">
+                                顶部提示
+                            </button>
+                            <button type="button" class="btn btn-primary" data-container="body" data-toggle="popover" data-placement="bottom" data-content="这里是提示内容">
+                                底部提示
+                            </button>
+                            <button type="button" class="btn btn-primary" data-container="body" data-toggle="popover" data-placement="right" data-content="这里是提示内容">
+                                右侧提示
+                            </button>
+                        </div>
+                    </div>
+                    
+                    
+<div class="container">
+  <h3>弹出框实例</h3>
+  <a href="#" data-toggle="popover" title="弹出框标题" data-content="弹出框内容">多次点我多次点我</a>
+</div>
+<br>
+<script>$(document).ready(function(){$('[data-toggle="popover"]').popover();})</script>
+<div class="container">
+  <h3>提示框实例</h3><br>
+  <a href="#" data-toggle="tooltip" title="我是提示内容!">鼠标移动到我这</a>
+</div>
+
+            </p>
+        </form>
+    </body>
+</html>
+<script>
+$(document).ready(function(){$('[data-toggle="tooltip"]').tooltip();});
+</script>

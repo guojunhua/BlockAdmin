@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html  lang="zh" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!--360浏览器优先以webkit内核解析-->
+    <title>积木介绍</title>
+       <meta name="keywords" content="积木快速开发平台,后台bootstrap框架,会员中心主题,后台HTML,响应式后台，后端使用jfinal,目标28法则80%的模块无需代码，免开发，开源">
+    <meta name="description" content="积木是一个完全响应式，基于Bootstrap3最新版本开发的扁平化主题，她采用了主流的左右两栏式布局，使用了Html5+CSS3等现代技术,后端使用jfinal,目标28法则80%的模块无需代码">
+    
+    
+<link href="/favicon.ico" rel="shortcut icon">
+    <link href="http://resh.bblocks.cn/ui_h/css/bootstrap.min.css"  rel="stylesheet"/>
+    <link href="http://resh.bblocks.cn/ui_h/css/font-awesome.min.css"  rel="stylesheet"/>
+    <link href="http://resh.bblocks.cn/ui_h/css/main/animate.min.css"  rel="stylesheet"/>
+    <link href="http://resh.bblocks.cn/ui_h/css/main/style.min862f.css"  rel="stylesheet"/>
+</head>
+
+<body class="gray-bg">
+    <div class="row  border-bottom white-bg dashboard-header">
+        <!-- <div class="col-sm-12">
+            <blockquote class="text-warning" style="font-size:14px">
+                                           阿里云服务器189元/年，双12年末特惠，爆款产品限时1折
+                <br><a target="_blank" href="https://www.aliyun.com/minisite/goods?userCode=brki8iof&share_source=copy_link">https://www.aliyun.com/minisite/goods?userCode=brki8iof&share_source=copy_link</a><br>
+                                           领取阿里云通用云产品1888优惠券
+                <br><a target="_blank" href="https://promotion.aliyun.com/ntms/yunparter/invite.html?userCode=brki8iof">https://promotion.aliyun.com/ntms/yunparter/invite.html?userCode=brki8iof</a><br>
+                                           领取腾讯云通用云产品2860优惠券
+                <br><a target="_blank" href="https://cloud.tencent.com/redirect.php?redirect=1025&cps_key=198c8df2ed259157187173bc7f4f32fd&from=console">https://cloud.tencent.com/redirect.php?redirect=1025&cps_key=198c8df2ed259157187173bc7f4f32fd&from=console</a><br>
+                <h4 class="text-danger">云产品通用红包，可叠加官网常规优惠使用。(仅限新用户)</h4>
+            </blockquote>
+
+            <hr>
+        </div> -->
+        <div class="col-sm-3">
+            <h2>小伙伴们，来关注积木吧~</h2>
+            <small>移动设备访问请扫描以下二维码：</small>
+            <br>
+            <br>
+            <img src="/ui_h/img/bb.png" width="100%" style="max-width:264px;">
+            <br> <br>
+            <p><i class="fa fa-qq"></i> 官方QQ群： <a href="//shang.qq.com/wpa/qunwpa?idkey=54022a26ee29e2ed58ab95091a63918e399897ae5cf749526c8ac4191672ca76" target="_blank">818129789</a> 
+                        </p>
+        </div>
+        <div class="col-sm-5">
+            <h2>积木快速开发平台</h2>
+            <p>一直想做一款后台管理系统，看了很多优秀的开源项目但是发现还是感觉开发不够理想。<br>
+            管理平台有管理和运营需求，需要快速的迭代出需要的功能模块，所以要求短平快。<br>
+     	目前主流快速开发有2种方式：1、模板生成 2、后台根据数据库渲染  ，当然这里边还有前后端分离的项目，个人的感觉是模板生成离实际可用的工作量还是比较多当然好处是灵活性大想怎么改怎么改，甚至还前后端分离，2个人来搞一天。<br>
+                   于是利用空闲休息时间开始自己写一套后台系统。如此有了积木快速开发平台。，她可以用于所有的Web应用程序，如<b>网站管理后台</b>，<b>网站会员中心</b>，<b>CMS</b>，<b>CRM</b>，<b>OA</b>等等，当然，您也可以对她进行深度定制，以做出更强系统。所有前端后台代码封装过后十分精简易上手，出错概率低。<br>
+             目标有几个：<br><b>1、实现基本的表单控件（约11个）基础的视图控件(列表，父子表，树表)</b> <br>
+             <b>2、相关的功能在此表单控件、视图控件像积木一样组合即可</b>  <br>
+             <b>3、不断迭代表单控件和视图控件以满足不断增加的需求</b><br>
+             <b>4、一个管理平台80%都可以积木组合完成，20%的功能还得diy完成，系统支持一键生成表单页面自己修改</b><br>
+             <b>5、集成钉钉工作流</b><br>
+             <b>5、集成BI数据分析</b><br>
+             <b>6、可以生成安装包，让小白用户快速本地安装部署</b><br>
+             <b>7、Oracle版本支持</b><br>
+             <b>8、积木特色Dashboard，只要拖拽以及懂sql即可快速定制看板</b><br>
+             
+             
+             </p>
+            <p>
+                <b>当前版本：</b><span>v2.2.0</span>
+            </p>
+            <p>
+                <span class="label label-warning">&yen;免费开源</span>
+            </p>
+            <br>
+            <p>
+                <a class="btn btn-success btn-outline" href="https://gitee.com/RemoteControl/BB" target="_blank">
+                    <i class="fa fa-cloud"> </i> 访问码云
+                </a>
+                
+            </p>
+        </div>
+        <div class="col-sm-4">
+            <h4>技术选型：</h4>
+            <ol>
+                <li>核心框架：JFinal 4.8。</li>
+                <li>模板引擎：beetl。</li>
+                <li>数据库连接池：Druid。</li>
+                <li>  定时任务:Quartz。</li>
+                <li>工具类：Fastjson。</li>
+                <li>环境:jdk8+mysql5.7</li>
+                <li>前端：bootstrap（参考ruoyi修改）</li>
+                <li>更多……</li>
+            </ol>
+        </div>
+
+    </div>
+    <div class="wrapper wrapper-content">
+        <div class="row">
+            <!--  -->
+            <div class="col-sm-8">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>最快的方式，让你看到怎么样快速开发~_~,<a href='/ui_h/use_banner.htm' target="_blank">点我全屏播放</a></h5>
+                        <div class="ibox-tools">
+                            <a class="collapse-link">
+                                <i class="fa fa-chevron-up"></i>
+                            </a>
+                            <a class="dropdown-toggle" data-toggle="dropdown" href="carousel.html#">
+                                <i class="fa fa-wrench"></i>
+                            </a>
+                            <ul class="dropdown-menu dropdown-user">
+                                <li><a href="carousel.html#">选项1</a>
+                                </li>
+                                <li><a href="carousel.html#">选项2</a>
+                                </li>
+                            </ul>
+                            <a class="close-link">
+                                <i class="fa fa-times"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="ibox-content ">
+                        <div class="carousel slide" id="carousel2">
+                            <ol class="carousel-indicators">
+                                <li data-slide-to="0" data-target="#carousel2" class="active"></li>
+                                <li data-slide-to="1" data-target="#carousel2"></li>
+                                <li data-slide-to="2" data-target="#carousel2" class=""></li>
+                                <li data-slide-to="3" data-target="#carousel2" class=""></li>
+                                <li data-slide-to="4" data-target="#carousel2" class=""></li>
+                                <li data-slide-to="5" data-target="#carousel2" class=""></li>
+                                <li data-slide-to="6" data-target="#carousel2" class=""></li>
+                            </ol>
+                            <div class="carousel-inner">
+                                <div class="item active">
+                                    <img alt="image" class="img-responsive" src="http://resh.bblocks.cn/demo/img/table.png">
+                                    <div class="carousel-caption">
+                                        <p><h2 class="text-info">第一步：设计一张表(需要一定复杂度表)，比如这张：demo2_test，约20个字段(包含:省市区、编辑字段，转义字段，关联字段，文件图片上传等)</h2></p>
+                                    </div>
+                                </div>
+                                <div class="item ">
+                                    <img alt="image" class="img-responsive" src="http://resh.bblocks.cn/demo/img/import.png">
+                                    <div class="carousel-caption">
+                                        <p ><h2 class="text-info">第二步：使用积木 平台维护=》元数据管理=》导入元数据 选择刚设计的表 输入:元对象名称、元对象编码，点击‘保存’</h2></p>
+                                    </div>
+                                </div>
+                                <div class="item">
+                                    <img alt="image" class="img-responsive" src="http://resh.bblocks.cn/demo/img/detail.png">
+                                    <div class="carousel-caption">
+                                        <p ><h2 class="text-info">第三步：再此列表查看此对象相关信息，下部设计元对象的字段信息，比如某些字段控件类型需要设置成文件框，某些字段需要需要设置编辑框等(当然不设置也可以只是出现的基本是输入框)</h2></p>
+                                    </div>
+                                </div>
+                                <div class="item">
+                                    <img alt="image" class="img-responsive" src="http://resh.bblocks.cn/demo/img/new_menu.png">
+                                    <div class="carousel-caption">
+                                        <p ><h2 class="text-info">第四步：元对象字段设置完成，设置菜单，主要是设置视图模式，平台维护=》菜单管理=》新增功能 业务模板选择：单表，元对象选择：刚才创建的元对象</h2></p>
+                                    </div>
+                                </div>
+                                 <div class="item">
+                                    <img alt="image" class="img-responsive" src="http://resh.bblocks.cn/demo/img/list.png">
+                                    <div class="carousel-caption">
+                                        <p ><h2 class="text-info">打完收工查询开发效果1：查询~~(记得F5刷新下)</h2></p>
+                                    </div>
+                                </div>
+                                <div class="item">
+                                    <img alt="image" class="img-responsive" src="http://resh.bblocks.cn/demo/img/add.png">
+                                    <div class="carousel-caption">
+                                        <p ><h2 class="text-info">打完收工查询开发效果2：新增~~</h2></p>
+                                    </div>
+                                </div>
+                                <div class="item">
+                                    <img alt="image" class="img-responsive" src="http://resh.bblocks.cn/demo/img/edit.png	">
+                                    <div class="carousel-caption">
+                                        <p ><h2 class="text-info">打完收工查询开发效果3:修改 等等,是不是很6皮~~（当然好像不漂亮，那参考已配置好的“控件演示”菜单）</h2></p>
+                                    </div>
+                                </div>
+                            </div>
+                            <a data-slide="prev" href="carousel.html#carousel2" class="left carousel-control">
+                                <span class="icon-prev"></span>
+                            </a>
+                            <a data-slide="next" href="carousel.html#carousel2" class="right carousel-control">
+                                <span class="icon-next"></span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-sm-4">
+
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>联系信息</h5>
+
+                    </div>
+                    <div class="ibox-content">
+                        <p><i class="fa fa-send-o"></i> 官网：<a href="http://h.bblocks.cn" target="_blank">http://h.bblocks.cn</a>
+                        </p>
+                        <p><i class="fa fa-qq"></i> QQ群： <a href="//shang.qq.com/wpa/qunwpa?idkey=54022a26ee29e2ed58ab95091a63918e399897ae5cf749526c8ac4191672ca76" target="_blank">818129789</a> 
+                        </p>
+                        <p><i class="fa fa-weixin"></i> 微信：<a href="javascript:;">/ *积木</a>
+                        </p>
+                        <p><i class="fa fa-credit-card"></i> 支付宝：<a href="javascript:;" class="支付宝信息">/ *积木</a>
+                        </p>
+                    </div>
+                </div>
+                
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>更新日志</h5>
+                    </div>
+                    <div class="ibox-content no-padding">
+                        <div class="panel-body">
+                            <div class="panel-group" id="version">
+                            
+                            <div class="panel panel-default">
+								<div class="panel-heading">
+								   <h5 class="panel-title">
+									   <a data-toggle="collapse" data-parent="#version" href="#v41">v2.2.0</a><code class="pull-right">2020.10.20</code>
+								   </h5>
+								</div>
+								<div id="v41" class="panel-collapse collapse in">
+									<div class="panel-body">
+									   <ol>
+									        <li>添加Dashboard视图</li>
+											<li>bug修正</li>
+
+										</ol>
+									</div>
+								</div>
+							 </div>
+                            
+                            <div class="panel panel-default">
+								<div class="panel-heading">
+								   <h5 class="panel-title">
+									   <a data-toggle="collapse" data-parent="#version" href="#v41">v2.1.0</a><code class="pull-right">2020.07.22</code>
+								   </h5>
+								</div>
+								<div id="v41" class="panel-collapse collapse in">
+									<div class="panel-body">
+									   <ol>
+									        <li>合并oracle版本支持</li>
+											<li>bug修正</li>
+
+										</ol>
+									</div>
+								</div>
+							 </div>
+                            
+                            <div class="panel panel-default">
+								<div class="panel-heading">
+								   <h5 class="panel-title">
+									   <a data-toggle="collapse" data-parent="#version" href="#v41">v2.0.2</a><code class="pull-right">2020.06.09</code>
+								   </h5>
+								</div>
+								<div id="v41" class="panel-collapse collapse in">
+									<div class="panel-body">
+									   <ol>
+									        <li>调整打包以及生成安装版本，让小白用户也可以快速本地运行配置开发（无需安装java相关开发工具）</li>
+									        <li>添加强大的虚拟字段功能，好多情况下无需做成视图即可显示表外字段</li>
+											<li>bug修正</li>
+											<li>Oracle版本待测试发布</li>
+										</ol>
+									</div>
+								</div>
+							 </div>
+                            
+                            <div class="panel panel-default">
+								<div class="panel-heading">
+								   <h5 class="panel-title">
+									   <a data-toggle="collapse" data-parent="#version" href="#v41">v2.0.1</a><code class="pull-right">2020.05.19</code>
+								   </h5>
+								</div>
+								<div id="v41" class="panel-collapse collapse in">
+									<div class="panel-body">
+									   <ol>
+									        <li>添加运营BI数据分析需求（集成帆软）</li>
+									        <li>集成钉钉，实现工作流需求（顺便实现和钉钉的 部门、用户、角色同步）</li>
+											<li>bug修正</li>
+										</ol>
+									</div>
+								</div>
+							 </div>
+                            
+                            <div class="panel panel-default">
+								<div class="panel-heading">
+								   <h5 class="panel-title">
+									   <a data-toggle="collapse" data-parent="#version" href="#v41">v2.0</a><code class="pull-right">2020.04.16</code>
+								   </h5>
+								</div>
+								<div id="v41" class="panel-collapse collapse in">
+									<div class="panel-body">
+									   <ol>
+									        <li>ui换成bootstrap(基于ruoyi修改)</li>
+									        <li>目前支持三种视图：列表，树，树表 后期继续更新</li>
+											<li>目前支持约14种表单控件，根据需要再迭代更多表单控件</li>
+											<li>其他细节优化</li>
+										</ol>
+									</div>
+								</div>
+							 </div>
+                            
+                            
+                            
+                               
+                               
+                            </div>
+                        </div>
+                        
+                        
+                        
+                    </div>
+                    
+                    
+                    
+                </div>
+                
+                
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>案例</h5>
+                    </div>
+                    <div class="ibox-content">
+                        <table class="table table-stripped small m-t-md">
+                            <tbody>
+                                <tr>
+                                    <td class="no-borders">
+                                        <i class="fa fa-circle text-navy"></i>
+                                    </td>
+                                    <td class="no-borders">
+                                 <a target="_blank" href="http://www.bblocks.cn:8081/"><span class="layui-badge">某学校用简单oa</span></a>
+                                    </td>
+                                    <td class="no-borders">
+                                        http://www.bblocks.cn:8081/	
+                                    </td>
+                                    <td class="no-borders">
+                                        xz/000000
+                                    </td>
+                                    <td class="no-borders">
+                                        80%功能配置20%手撸
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <i class="fa fa-circle text-navy"></i>
+                                    </td>
+                                    <td>
+						                             待补充。。。
+                                    </td>
+                                    <td class="no-borders">
+                                        -
+                                    </td>
+                                    <td class="no-borders">
+                                        -
+                                    </td>
+                                    <td class="no-borders">
+                                        -
+                                    </td>
+                                </tr>
+                                
+                            </tbody>
+                        </table>
+                    
+                    </div>
+                </div>
+                
+            </div>
+            
+            </div>
+        </div>
+    </div>
+    <script th:src="http://resh.bblocks.cn/ui_h/js/jquery.min.js"></script>
+    <script th:src="http://resh.bblocks.cn/ui_h/js/bootstrap.min.js"></script>
+    <script th:src="http://resh.bblocks.cn/ui_h/ajax/libs/layer/layer.min.js"></script>
+    
+    
+   <script src="http://resh.bblocks.cn/ui_h/js/jquery.min.js"></script>
+    <script src="http://resh.bblocks.cn/ui_h/js/bootstrap.min.js"></script>
+    <script src="http://resh.bblocks.cn/ui_h/ajax/libs/layer/layer.min.js"></script>
+    
+    
+    <script type="text/javascript">
+	   /*  $('#pay-qrcode').click(function(){
+	        var html=$(this).html();
+	        parent.layer.open({
+	            title: false,
+	            type: 1,
+	            closeBtn:false,
+	            shadeClose:true,
+	            area: ['600px', 'auto'],
+	            content: html
+	        });
+	    }); */
+    </script>
+</body>
+</html>
