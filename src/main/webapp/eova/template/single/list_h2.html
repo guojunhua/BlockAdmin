@@ -1,0 +1,65 @@
+<%layout("/eova/layout/default_h.html",{'title' : object.name! + '列表'}){%>
+<body class="childrenBody">
+
+
+	<!-- 	查询条件,系统配置的搜索条件（还会出现一个默认的过滤条件优先且需要隐藏（主要是跳转过来的数据）） -->
+	<%if(isTrue(isQuery!)){%>
+<!-- 	<blockquote class="layui-elem-quote quoteBox"> -->
+	
+<!-- 	</blockquote> -->
+	
+
+<!-- <div class="content-head mgb10">
+                            <div class="form-group">
+                                <label  class="sr-only"></label>
+                                <input type="text" class="form-control" id="sn-val" placeholder="请输入单据号">
+                            </div>
+                            <div class="form-group">
+                                <a href="javascript:;" class="btn btn-default btn-sm" id="sn-btn">
+                                    <i class="fa fa-search"></i>
+                                </a>
+                            </div>
+                            <div class="form-group">
+                                <label >采购部门：</label>
+                                <select name="warehouse_name" class="form-control" id="purchaseSearch">
+                                    {foreach name="ware_list" item="vo" }
+                                    <option value="{$vo.warehouse_id}">{$vo.warehouse_name}</option>
+                                    {/foreach}
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label  class="date-label">单据日期：</label>
+                                <div class="date-container">
+                                    <i class="fa fa-calendar date-icon"></i>
+                                    <input type="text" id="startData" class="form-control date-input">
+                                </div>
+ 
+                            </div>
+                            <div class="form-group">
+                                <label  class="date-label">--</label>
+                                <div class="date-container">
+                                    <i class="fa fa-calendar date-icon"></i>
+                                    <input type="text" id="endData" class="form-control date-input">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <a href="javascript:;" id="searchware" class="btn btn-default btn-sm"><i class="fa fa-search"></i>查 询</a>
+                            </div>
+                    </div> -->
+	<%}%>
+	
+	
+
+	
+<!-- 	<table id="dataList" lay-filter="dataList"></table> -->
+	<#grid_h id="${object.id}" objectCode="${object.code}" toolbar="gridToolbar" menuCode="${menu.code}" />
+	
+
+
+<!-- <script type="text/javascript" src="../../ui2/js/dataList.js"></script> -->
+</body>
+<script type="text/javascript" src="${STATIC!}/ui/js/template.js"></script>
+<%if(!isEmpty(menu.diy_js!)){%>
+<script type="text/javascript" src="${menu.diy_js}"></script>
+<%}%>
+<%}%>

@@ -1,0 +1,183 @@
+<%layout("/eova/layout/default_h.html",{'title' : object.name! + '列表'}){%>
+   <style type="text/css">   
+.table tbody tr td{
+      overflow: hidden; 
+      text-overflow:ellipsis;  
+      white-space: nowrap; 
+ }
+</style>  
+<body class="gray-bg">
+
+
+	<!-- 	查询条件,系统配置的搜索条件（还会出现一个默认的过滤条件优先且需要隐藏（主要是跳转过来的数据）） -->
+	<%if(isTrue(isQuery!)){%>
+<!-- 	<blockquote class="layui-elem-quote quoteBox"> -->
+	
+<!-- 	</blockquote> -->
+	
+
+<!-- <div class="content-head mgb10">
+                            <div class="form-group">
+                                <label  class="sr-only"></label>
+                                <input type="text" class="form-control" id="sn-val" placeholder="请输入单据号">
+                            </div>
+                            <div class="form-group">
+                                <a href="javascript:;" class="btn btn-default btn-sm" id="sn-btn">
+                                    <i class="fa fa-search"></i>
+                                </a>
+                            </div>
+                            <div class="form-group">
+                                <label >采购部门：</label>
+                                <select name="warehouse_name" class="form-control" id="purchaseSearch">
+                                    {foreach name="ware_list" item="vo" }
+                                    <option value="{$vo.warehouse_id}">{$vo.warehouse_name}</option>
+                                    {/foreach}
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label  class="date-label">单据日期：</label>
+                                <div class="date-container">
+                                    <i class="fa fa-calendar date-icon"></i>
+                                    <input type="text" id="startData" class="form-control date-input">
+                                </div>
+ 
+                            </div>
+                            <div class="form-group">
+                                <label  class="date-label">--</label>
+                                <div class="date-container">
+                                    <i class="fa fa-calendar date-icon"></i>
+                                    <input type="text" id="endData" class="form-control date-input">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <a href="javascript:;" id="searchware" class="btn btn-default btn-sm"><i class="fa fa-search"></i>查 询</a>
+                            </div>
+                    </div> -->
+	<%}%>
+	
+	
+
+	
+<!-- 	<table id="dataList" lay-filter="dataList"></table> -->
+	
+	
+	
+	<div class="container-div">
+		<div class="row">
+			<!-- <div class="col-sm-12 search-collapse">
+			
+				<form id="ordinary-form">
+					<div class="select-list">
+						<ul>
+							<li>
+								用户名称：<input type="text" name="userName"/>
+							</li>
+							<li>
+								<a class="btn btn-primary btn-rounded btn-sm" onclick="query()"><i class="fa fa-search"></i>&nbsp;搜索</a>
+							    <a class="btn btn-warning btn-rounded btn-sm" onclick="$.form.reset()"><i class="fa fa-refresh"></i>&nbsp;重置</a>
+							</li>
+						</ul>
+					</div>
+				</form>
+				
+			</div> -->
+			<%
+			//控件不全暂时不开放
+			//<#query_h id="queryForm" objectCode="${object.code}" object="${object}"  />
+			%>
+			<#query_h id="form_${object.id}" objectCode="${object.code}" object="${object}"  />
+			<%if(isEmpty(mode!)){//默认得才有菜单按钮%>
+			<div class="btn-group-sm" id="toolbar_${object.id}" role="group">
+               
+	            <!-- <a class="btn btn-success" onclick="$.operate.add()">
+	                <i class="fa fa-plus"></i> 新增
+	            </a>
+	            <a class="btn btn-primary single disabled" onclick="$.operate.edit()">
+	                <i class="fa fa-edit"></i> 修改
+	            </a>
+	            <a class="btn btn-danger multiple disabled" onclick="$.operate.removeAll()">
+	                <i class="fa fa-remove"></i> 删除
+	            </a> -->
+	         
+	
+				  <%for(btn in btnList){
+				  try{%>
+					 <%include(btn.ui,{'menu': menu, 'object':object, 'button': btn, 'gridId': 'grid','queryId':'queryForm'}){}%>
+				  <%}catch(error){%>
+				  <script type="text/javascript">
+				  layui.use(['layer'], function(){ layer.alert("按钮 '${btn.name}' 未能加载,请联系管理员.", {icon: 2});});
+				  </script>
+				  <%}}%>
+			  
+	            <% //debug(session.user!);
+	            // 仅超级管理员可见%>
+        		<%if(session.user.isAdmin){%>
+        						<%include("/eova/button/btn/quick_h.html",{'menu': menu, 'object':object, 'queryId':'queryForm', 'parentId': 'grid'}){}%>
+        						<%include("/eova/button/btn/quick_objectFieldAuth_h.html",{'menu': menu, 'object':object, 'queryId':'queryForm', 'parentId': 'grid'}){}%>
+        						<%include("/eova/button/btn/quick_obj_h.html",{'menu': menu, 'object':object, 'queryId':'queryForm', 'parentId': 'grid'}){}%>
+				<%}%>
+	       
+	            
+	            
+            </div>
+			<%}%>	
+			
+			<div class="col-sm-12 select-table table-striped">
+<!-- 				<table id="bootstrap-table"></table> -->
+				
+ 				<#grid_h id="grid_${object.id}" objectCode="${object.code}" toolbar="toolbar_${object.id}" menuCode="${menu.code}" /> 
+				
+			</div>
+			
+		</div>
+	</div>
+	
+    <div>
+	
+</div>
+	
+                    
+                    
+                    
+                     
+                    
+
+
+</body>
+<script type="text/javascript" src="${STATIC!}/ui/js/template.js"></script>
+<script type="text/javascript">
+function submitHandler(index, layero) {
+	var minNum = '${minNum!}';
+	var maxNum = '${maxNum!}';
+	
+	var rows = $.table.selectUniqueColumns();
+	if (rows.length == 0) {
+			$.modal.alertWarning("请至少选择一条记录");
+			return;
+	}
+	if(minNum != '' && rows.length<minNum){
+		$.modal.alertWarning("请至少选择"+minNum+"条记录");
+		return;
+	}
+	if(maxNum != '' && rows.length>maxNum){
+		$.modal.alertWarning("请至多选择"+maxNum+"条记录");
+		return;
+	}
+	
+	parent.$('#${choiceField!}_show').val($.table.selectColumns('${nameField!}').join());
+	parent.$('#${choiceField!}').val(rows.join());
+	$.modal.close();
+	//confirmChoice($.table,'${choiceField!}','${nameField!}', minNum,maxNum);
+}
+function refresh(){
+	$.table.search();
+}
+</script>
+<%if(!isEmpty(menu.diy_js!)){%>
+<script type="text/javascript" src="${menu.diy_js}"></script>
+<%}%>
+<%if(!isEmpty(object.diy_js!)){%>
+<script type="text/javascript" src="${object.diy_js}"></script>
+<%}%>
+<%}%>
+

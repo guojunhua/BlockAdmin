@@ -1,0 +1,20 @@
+<a class="btn btn-primary single disabled" onclick="bb_roleChoose(${button.open_pattern!})">
+<i class="${strutil.out(button.icon!,'')}"></i> ${button.name}
+</a>
+
+<script type="text/javascript">
+var bb_roleChoose = function(isTab) {
+	var id = $.operate.theChoiceId();
+	
+	if (id == null) {
+		$.modal.alertWarning("请至少选择一条记录");
+		return;
+	}
+	
+	if(isTab)
+		$.modal.openTab("设置角色权限" , '/auth/toRoleChoose/' + id);
+	else
+		$.modal.open("设置角色权限" , '/auth/toRoleChoose/' + id);
+	
+};
+</script>

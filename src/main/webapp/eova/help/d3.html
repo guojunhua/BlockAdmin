@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+<meta http-equiv="Content-Typecontent="text/html; charset=UTF-8" />
+<style>
+    canvas {
+        border: 1px dashed black;
+    }
+</style>
+<!--
+https://www.cnblogs.com/winleisure/p/3517998.html
+
+
+<script src="http://fabricjs.com/lib/fabric.js"></script>-->
+<script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.5.1/jquery.js"></script>
+<script src="https://d3js.org/d3.v4.min.js"></script>
+<script>
+
+var svg;
+function drawGear(){
+	//var p = d3.select("body").select("#chilun");
+	//p.remove();
+	d3.selectAll("svg").remove(); 
+
+	 let width = parseInt($("#width").val());//800;  //画布的宽度
+	 let height = parseInt($("#height").val());//800; //画布的高度
+	 
+	let  init_r = parseInt($("#init_r").val());//300;//初始圆半径
+	let  step_r = parseInt($("#step_r").val());//20;//圆半径步进
+	
+	let step_nums = parseInt($("#step_nums").val());//10级别
+
+	//最终的齿轮宽度 4+10+4 = 18
+	let line_width = parseInt($("#line_width").val());//8 ;//线宽
+	let interval_width = Number($("#interval_width").val());//10.05 ;//间宽
+	
+	
+	
+	svg = d3.select("#chilun")     //选择文档中的body元素
+					.append("svg")          //添加一个svg元素
+					.attr("width", width)       //设定宽度
+					.attr("height", height);    //设定高度
+	
+	
+	let firstTeethNum = 0;
+	let lastTeethNum = 0;
+	
+	for(let i=0;i<step_nums;i++){
+
+			let r = init_r - step_r*i;
+
+			//画圆形
+			var circle = svg.append("circle")
+			.attr("cx",width/2)
+			.attr("cy",height/2)
+			.attr("r",init_r - step_r*i)
+			.attr('class', 'circleItem')
+			.attr('fill', 'none')
+			//.style("fill","white")
+			.attr("stroke","black")
+			.attr('stroke-width', 1);
+
+
+			if( i >= 1){
+				let girth = 2*Math.PI * (r );
+				console.log('girth:'+girth);
+				let nums =  girth/(line_width+interval_width);
+				console.log('齿数：'+nums);
+				nums = Math.round(nums)
+				console.log(nums);
+				
+				if(i == 1)
+					firstTeethNum = nums;
+				else if(i == step_nums-1)
+					lastTeethNum = nums;
+				
+				let angle = 360/nums;
+				console.log('angle:'+angle);
+				
+				for(let x = 1;x<nums;x++){
+					let x1 = width/2 + r * Math.cos(angle*x * Math.PI / 180);
+					let y1 = height/2 + r * Math.sin(angle*x * Math.PI /180);
+					
+					
+					let x2 = width/2 + (r+ step_r) * Math.cos(angle*x * Math.PI / 180);
+					let y2 = height/2 + (r+step_r) * Math.sin(angle*x * Math.PI /180);
+					
+					oneline(x1,y1,x2,y2);
+				}
+			}
+
+
+	}
+
+	//画直线
+	let line = oneline(width/2,height/2,width/2+init_r,height/2);
+
+	//画圆 圆心
+	let circle0 = svg
+	.append("circle")
+	.attr("cx",width/2)
+	.attr("cy",height/2)
+	.attr("r",5)
+	;
+
+	$("#remark").text((step_nums-1)+"级,变速比："+firstTeethNum+"/"+lastTeethNum+"="+firstTeethNum/lastTeethNum);
+}
+
+function oneline(x1,y1,x2,y2){
+		let line = svg.append("line")
+		.attr("x1",x1)
+		.attr("y1",y1)
+		.attr("x2",x2)
+		.attr("y2",y2)
+		.attr("stroke","black")
+		.attr("stroke-width",8);  
+
+		return line;
+}
+
+
+window.onload = function() {
+	//drawGear();
+}
+ 
+</script>
+</head>
+<body>
+长度：<input id="height" name="height" value="800"><br>
+宽度：<input id="width" name="width" value="800"><br>
+
+半径：<input id="init_r" name="init_r" value="300"><br>
+齿轮步进：<input id="step_r" name="step_r" value="20"><br>
+齿轮阶：<input id="step_nums" name="step_nums" value="2"><br>
+
+齿轮齿宽1：<input id="line_width" name="line_width" value="8"><br>
+齿轮齿宽2：<input id="interval_width" name="interval_width" value="20"> 齿轮齿宽1/2+齿轮齿宽2+齿轮齿宽1/2=齿间距 <br>
+<button type="button" onclick="drawGear()">重画齿轮</button>
+<div id="remark">11</div>
+<div id="chilun"></div>
+</body>
+</html>

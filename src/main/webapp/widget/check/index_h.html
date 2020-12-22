@@ -1,0 +1,144 @@
+<%
+var verify = "";
+if(isTrue(isNoN!) ){
+	verify = "required=true";
+}
+if(!isEmpty(validator!)){
+	if(verify != ''){
+		verify += ';';
+	}
+	verify = verify + validator!;
+}
+var readonly= false;
+if(isTrue(isReadonly!) ||isTrue(view!)){
+	readonly = true;
+	verify = '';
+}
+
+var finalValue = strutil.finalValue(defaultValue!,value!,limit!);
+%>
+<!-- 审核模块需要用到 -->
+<div id="hcheck_${field.en}">
+<input type="hidden" name="${name}" id="${name}" value="${finalValue}">
+
+ 									<!--
+ 									 <div class="checkbox i-checks">
+                                        <label>
+                                            <input type="checkbox" name='1122' value=""> <i></i> 选项1</label>
+                                    </div>
+                                    <div class="checkbox i-checks">
+                                        <label>
+                                            <input type="checkbox" name='1122' value="" checked=""> <i></i> 选项2（选中）</label>
+                                    </div>
+                                    <div class="checkbox i-checks">
+                                        <label>
+                                            <input type="checkbox" value="" disabled="" checked=""> <i></i> 选项3（选中并禁用）</label>
+                                    </div>
+                                    <div class="checkbox i-checks">
+                                        <label>
+                                            <input type="checkbox" value="" disabled=""> <i></i> 选项4（禁用）</label>
+                                    </div>
+                                    <div class="radio i-checks">
+                                        <label>
+                                            <input type="radio" value="option1" name="a"> <i></i> 选项1</label>
+                                    </div>
+                                    <div class="radio i-checks">
+                                        <label>
+                                            <input type="radio" checked="" value="option2" name="a"> <i></i> 选项2（选中）</label>
+                                    </div>
+                                    <div class="radio i-checks">
+                                        <label>
+                                            <input type="radio" disabled="" checked="" value="option2"> <i></i> 选项3（选中并禁用）</label>
+                                    </div>
+                                    <div class="radio i-checks">
+                                        <label>
+                                            <input type="radio" disabled="" name="a"> <i></i> 选项4（禁用）</label>
+                                    </div>
+                                     -->
+              
+             
+</div>        
+<script>
+// JS 可以干预控件所在页面的任何效果
+
+
+$(function(){
+
+	var idName = "hcheck_${field.en}";
+	var $checks = $('#' + idName);
+	var $checkValue = $checks.find("input:hidden");
+	
+	var readonly = ${readonly};
+	
+	var limit = null;
+	if("${limit!}" != ""){
+		limit = "${limit!}".split(','); 
+	}
+	
+	
+	
+	// 加载数据(复选框其实和下拉一样，只是展现方式不一样，所以直接用下拉的API获取数据)
+	var url = "/widget/comboJson/${field.object_code}-${field.en}";
+	$.ajax({
+        type: 'get',
+        async: true,
+        url: url,
+        dataType: "json",
+        success: function (json) {
+        	
+        	// 生成复选框Dom
+            $.each(json, function (index, o) {
+            	//$('<input type="radio" name="${name}_radio" lay-filter="${name}_radio" value="'+o.id+'" title="'+o.cn+'" >').appendTo($checks);
+                //$("<label><input type=\"radio\" value=\"" + o.id + "\">" + o.cn + "&nbsp;</label>").appendTo($checks);
+                
+               // var one = '<div class="radio radio-inline radio-success"><input type="radio" id="${name}_radio'+index+'" name="${name}_radio" value="'+o.id+'" name="radioInline"><label for="${name}_radio'+index+'"> '+o.cn+'</label></div>';
+           		
+                var one = '<div class="checkbox i-checks"> <label><input type="radio" id="${name}'+index+'" name="${name}_radio" placeholder="${placeholder!}" bb-verify="${verify!}" ${strutil.replace(verify!,';',' ')} value="'+o.id+'"  > <i></i> '+o.cn+'</label></div>';
+           		$(one).appendTo($checks);
+            });
+        	
+        	var choiceValue = null;
+        
+            choiceValue='${finalValue!}';
+        	
+        	$checks.find('input:radio').each(function(i, o){
+        		//console.log($(o).val());
+        		
+        		if(readonly || ((limit!= null)&&$.findArray(limit,$(o).val()) == -1)){
+        			o.disabled = true;
+        		}
+        		
+        		
+        		//if($checkValue.val() == $(o).val()){
+        		if(choiceValue == $(o).val()){	
+        			o.checked = true;
+        		}
+        		
+        		
+        	});
+        	
+        
+        	 $('input[name="${name}_radio"]').on('ifChecked', function() {
+        		 	var checkValue = $('input:radio[name="${name}_radio"]:checked').val(); 
+         			//alert(checkValue);
+         			//console.log($checkValue);
+         			$("#status").val(checkValue);
+        	    });
+
+        	
+        	 $('.i-checks').iCheck({
+                 checkboxClass: 'icheckbox_square-green',
+                 radioClass: 'iradio_square-green',
+             });
+             
+        },
+        error: function () {
+            alert('复选框加载数据失败,URL=' + url);
+        }
+    });
+
+
+
+});
+
+</script>

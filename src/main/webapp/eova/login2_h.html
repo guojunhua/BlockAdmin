@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+
+    <title>${APP.name} - 登录</title>
+    <meta name="keywords" content="${APP.keywords}">
+    <meta name="description" content="${APP.description}">
+    <link href="/favicon.ico" rel="shortcut icon">
+    <link href="${CDN!STATIC!}/ui_h/css/bootstrap.min.css" rel="stylesheet"/>
+    <link href="${CDN!STATIC!}/ui_h/css/font-awesome.min.css" rel="stylesheet"/>
+    <!-- bootstrap-table 表格插件样式 -->
+    <link href="${STATIC!}/ui_h/ajax/libs/layer/theme/default/layer.css?v=3.1.1" rel="stylesheet" id="layuicss-layer">
+    <link href="${STATIC!}/ui_h/css/style.css" rel="stylesheet"/>
+    <link href="${STATIC!}/ui_h/bb/css/ry-ui.css" rel="stylesheet"/>
+
+    <link href="${STATIC!}/ui_h/css/login2.css" rel="stylesheet">
+
+    <script src="${CDN!STATIC!}/ui_h/js/jquery.min.js"></script>
+    <script src="${CDN!STATIC!}/ui_h/js/bootstrap.min.js"></script>
+
+    <script src="${CDN!STATIC!}/ui_h/ajax/libs/validate/jquery.validate.min.js"></script>
+    <script src="${CDN!STATIC!}/ui_h/ajax/libs/validate/messages_zh.min.js"></script>
+    <script src="${CDN!STATIC!}/ui_h/ajax/libs/layer/layer.min.js"></script>
+    <script src="${CDN!STATIC!}/ui_h/ajax/libs/blockUI/jquery.blockUI.js"></script>
+
+    <script src="${STATIC!}/ui_h/bb/js/ry-ui.js?v=4.1.0"></script>
+
+    <!--[if lt IE 9]>
+    <meta http-equiv="refresh" content="0;ie.html"/>
+    <![endif]-->
+    <style type="text/css">label.error {
+        position: inherit;
+    }</style>
+    <script>
+        if (window.top !== window.self) {
+            window.top.location = window.location
+        }
+        ;
+    </script>
+
+</head>
+
+<body class="signin">
+<div id="particles-js" style="display: flex;align-items: center;justify-content: center">
+    <canvas class="particles-js-canvas-el" style="width: 100%; height: 100%;"></canvas>
+</div>
+<div class="signinpanel">
+    <div class="row">
+        <div class="col-sm-7">
+            <div class="signin-info">
+                <div class="logopanel m-b">
+                    <h1>
+                        <!--                         <img alt="[ 若依 ]" src="/ruoyi.png"> -->
+                    </h1>
+                </div>
+                <div class="m-b"></div>
+                <h2>欢迎使用 <strong>${APP.name} </strong></h2>
+                <ul class="m-b">
+                    <li><i class="fa fa-arrow-circle-o-right m-r-xs"></i> JFinal 4.8 </li>
+                    <li><i class="fa fa-arrow-circle-o-right m-r-xs"></i> 板引擎：beetl</li>
+                    <li><i class="fa fa-arrow-circle-o-right m-r-xs"></i> 前端：bootstrap(若依)</li>
+                    <li><i class="fa fa-arrow-circle-o-right m-r-xs"></i> 多种数据库支持(mysql、oracle等)</li>
+                    <li><i class="fa fa-arrow-circle-o-right m-r-xs"></i> 完善的文档</li>
+                    <li><i class="fa fa-arrow-circle-o-right m-r-xs"></i> 最重要一点，不要写代码~_~</li>
+                    <li><i class="fa fa-arrow-circle-o-right m-r-xs"></i> 积木搭建一个“通知管理”模块只要5分钟</li>
+                    <li><i class="fa fa-arrow-circle-o-right m-r-xs"></i> 项目是开源，插件不断丰富中</li>
+                    <li><i class="fa fa-arrow-circle-o-right m-r-xs"></i> webapp/ui_h/img中提供多张高清星空图供选择</li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-sm-5">
+            <form id="signupForm">
+                <input type="text" name="username" class="form-control uname" value="${loginId!}" placeholder="用户名"
+                       value="admin"/>
+                <input type="password" name="password" class="form-control pword" value="${loginPwd!}" placeholder="密码"
+                       value="admin123"/>
+                <%if(isTrue(isCaptcha!)){%>
+                <div class="row m-t">
+                    <div class="col-xs-6">
+                        <input type="text" name="validateCode" class="form-control code" placeholder="验证码" maxlength="5"
+                               autocomplete="off">
+                    </div>
+                    <div class="col-xs-6">
+                        <a href="javascript:void(0);" title="点击更换验证码">
+                            <img src="/captcha?type=math" class="imgcode" width="85%"/>
+                        </a>
+                    </div>
+                </div>
+
+                <%}%>
+                <%if(!isTrue(isCaptcha!)){%>
+                <p class="m-t-md">角色：超管,帐号:bb,密码:000000,请勿修改密码</p>
+                <%}%>
+                <!--  <div class="checkbox-custom">
+                     <input type="checkbox" id="rememberme" name="rememberme"> <label for="rememberme">记住我</label>
+                 </div> -->
+                <button class="btn btn-success btn-block" id="btnSubmit" data-loading="正在验证登录，请稍后...">登录</button>
+            </form>
+        </div>
+    </div>
+    <div class="signup-footer">
+        <div class="pull-left">
+            ${APP.copyright!}<br>
+        </div>
+    </div>
+</div>
+
+</body>
+<script> var ctx = "\/";
+var captchaType = "math"; </script>
+<script src="${STATIC!}/ui_h/bb/login.js"></script>
+<!-- 首页粒子效果 -->
+<script src="${STATIC!}/ui_h/js/particles.js"></script>
+<script src="${STATIC!}/ui_h/js/login2.js"></script>
+</html>

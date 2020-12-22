@@ -1,0 +1,106 @@
+<%layout("/eova/layout/default_h.html",{'title' : object.name! + '列表'}){%>
+   <style type="text/css">   
+.table tbody tr td{
+      overflow: hidden; 
+      text-overflow:ellipsis;  
+      white-space: nowrap; 
+ }
+</style> 
+<script src="https://cdn.staticfile.org/echarts/4.7.0/echarts.min.js"></script>
+<body class="gray-bg">
+
+
+	<!-- 	dashboard 主要是用来显示图标，目前不设计带查询 -->
+	<%if(isTrue(isQuery!)){%>
+
+	<%}%>
+	
+	
+
+
+	
+	
+	<div class="container-div">
+		<div class="row">
+	
+			<%
+			//控件不全暂时不开放，查询项 有需要么？设计按钮是存在的
+			%>
+			<%if(isEmpty(mode!)){//默认得才有菜单按钮%>
+			<div class="btn-group-sm" role="group">
+
+				  <%for(btn in btnList){
+				  try{%>
+					 <%include(btn.ui,{'menu': menu, 'object':object, 'button': btn, 'gridId': 'grid','queryId':'queryForm'}){}%>
+				  <%}catch(error){%>
+				  <script type="text/javascript">
+				  layui.use(['layer'], function(){ layer.alert("按钮 '${btn.name}' 未能加载,请联系管理员.", {icon: 2});});
+				  </script>
+				  <%}}%>
+			  
+	            <% //debug(session.user!);
+	            // 仅超级管理员可见设计看板 %>
+        		<%if(session.user.isAdmin){%>
+        		<%include("/eova/button/btn/chartsDesign_h.html",{'menu': menu!}){}%>
+				<%}%>
+	       
+	            
+	            
+            </div>
+			<%}%>	
+			
+			
+<!-- 				<table id="bootstrap-table"></table> -->
+
+			<div class="wrapper wrapper-content">		
+<!--  				<div class="bb_charts" id="xx_id"  dg-chart-widget="xx_code" style="width: 100%;height:400px;"></div> -->
+ 				${menu.board_ui!}
+			</div>
+			
+		</div>
+	</div>
+	
+    <div>
+	
+</div>
+	
+                    
+                    
+                    
+                     
+                    
+
+
+</body>
+<script type="text/javascript" src="${STATIC!}/ui/js/template.js"></script>
+<script type="text/javascript">
+//dg-chart-widget="ad2df95a11749af293b9"
+var bb_charts = $('.bb_charts');
+$(".bb_charts").each(function(){
+	let me = $(this);
+	
+	
+	let code = me.attr("dg-chart-widget");
+	if(!code){
+		console.log('无code,不能初始视图');
+		return;
+	}
+		
+	let id = me.attr("id");
+	console.log(code);
+	
+	
+	$.initChartsByCode(id,code);
+	
+});
+
+
+</script>
+<%if(!isEmpty(menu.diy_js!)){%>
+<script type="text/javascript" src="${menu.diy_js}"></script>
+<%}%>
+<%if(!isEmpty(object.diy_js!)){%>
+<script type="text/javascript" src="${object.diy_js}"></script>
+<%}%>
+<%}%>
+

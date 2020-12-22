@@ -1,0 +1,218 @@
+<%layout("/eova/layout/default_h.html",{'title' : '积木初始数据库配置第二步'}){%>
+<script type="text/javascript">
+
+	// 禁止登录页内嵌
+	if (window != top){
+		parent.location.href = location.href; 
+	}
+	
+	
+</script>
+<style>
+
+        .login-page {
+            background-image: url("http://h.bblocks.cn/ui_h/img/login-background.jpg");
+            background-size: cover;
+        }
+
+        .form-group {
+            text-align: left;
+        }
+
+        .login-box {
+            margin: 2% auto;
+            width: 660px;
+            min-height: 600px;
+            padding: 0;
+        }
+
+        .page-header {
+            margin: 50px 0 30px 0;
+            font-size: 16px;
+            color: #999;
+            text-align: left;
+        }
+		.login-box-body{
+		background: #fff;
+	    padding: 20px;
+	    border-top: 0;
+	    color: #666;
+		}
+
+    </style>
+<body class="hold-transition login-page">
+
+<div class="row">
+    <div class="login-box text-center">
+        <div class="login-box-body">
+
+<form class="form-horizontal form-setting"
+      action="/doInit" method="post" id="form">
+    <div class="form-group">
+        <div class="col-sm-12">
+            请填写数据库的相关信息<h4>目前只做了mysql安装向导,以mysql5.7为基准开发，其他版本未做兼容测试</h4>
+        </div>
+    </div>
+    
+    <h4 class="page-header" style="margin-top: 20px">积木主库/业务库</h4>
+    <div class="form-group">
+        <label class="col-sm-2 control-label">数据库名</label>
+        <div class="col-sm-9">
+            <input type="input" autocomplete="off" class="form-control" placeholder="您要将您的业务安装到哪个数据库？"
+                   name="mainDb" value="" required>
+            <p class="help-block"></p>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-2 control-label">用户名</label>
+
+        <div class="col-sm-9">
+            <input type="input" class="form-control" placeholder="数据库用户名" required
+                   name="mainUserName" value="">
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="col-sm-2 control-label">密码</label>
+
+        <div class="col-sm-9">
+            <input type="input" class="form-control" placeholder="... 及密码"
+                   name="mainPsw" value="">
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-10">
+            <div class="checkbox">
+                <label>
+                    <input type="checkbox" name="mainAllowCreate" value="true"> 当数据库不存在时，自动为我创建（需要以上用户拥有相关权限）。
+                </label>
+            </div>
+        </div>
+    </div>
+    
+    <h4 class="page-header" style="margin-top: 20px">积木从库/配置库</h4>
+    <div class="form-group">
+        <label class="col-sm-2 control-label">数据库名</label>
+        <div class="col-sm-9">
+            <input type="input" class="form-control" placeholder="您要将积木配置安装到哪个数据库？"
+                   name="bbDb" value="bb" required>
+            <p class="help-block">  </p>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-2 control-label">用户名</label>
+
+        <div class="col-sm-9">
+            <input type="input" class="form-control" placeholder="数据库用户名"
+                   name="bbUserName" value="" required>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="col-sm-2 control-label">密码</label>
+
+        <div class="col-sm-9">
+            <input type="input" class="form-control" placeholder="... 及密码"
+                   name="bbPsw" value="" >
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-10">
+            <div class="checkbox">
+                <label>
+                    <input type="checkbox" name="bbAllowCreate" value="true"> 当数据库不存在时，自动为我创建（需要以上用户拥有相关权限）。
+                </label>
+            </div>
+        </div>
+    </div>
+
+
+
+    <h4 class="page-header">主机信息</h4>
+
+    <div class="form-group">
+        <label class="col-sm-2 control-label">主机</label>
+        <div class="col-sm-9">
+            <input type="input" class="form-control" placeholder="主机或IP地址"
+                   name="ip"  value="127.0.0.1">
+            <p class="help-block">如果 127.0.0.1 不能用，您通常可以从网站服务商得到正确的信息。</p>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-2 control-label">端口号</label>
+        <div class="col-sm-9">
+            <input type="text" class="form-control" placeholder="数据库端口号"
+                   name="port" value="3306">
+            <p class="help-block">MySQL 的默认端口号是 3306 。</p>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class=" col-xs-3 " style="padding-top: 15px">
+            <a href="/initStepOne" class="btn btn-default btn-block btn-flat"> 上一步 </a>
+        </div>
+
+        <div class="col-xs-offset-6 col-xs-3 " style="padding-top: 15px">
+            <button type="button" id="submit" class="btn btn-primary btn-block btn-flat"> 下一步</button>
+        </div>
+    </div>
+</form>
+
+        </div>
+    </div>
+</div>
+
+
+
+<script>
+
+$(function() {
+	
+	
+	
+    $("#submit").on('click', function() {
+      var data = $('#form').serialize();// new FormData($("#form")[0]);
+      if ($.validate.form()) {
+    	  
+	      $.ajax({
+	        type: 'POST',
+	        dataType: 'json',
+	        data: data,
+	        url: '/doInit',
+	        beforeSend: function () {
+	        	$.modal.loading("正在处理中，请稍后...");
+	        },
+	        success: function(data, textStatus, xhr) {
+	        	$.modal.closeLoading();
+	        	if (data.success == true) {
+
+	            	layer.alert(data.msg, {icon: 1,yes: function(index, layero){
+	            		layer.alert('欢迎使用积木快速开发平台~', {icon: 6,yes: function(index, layero){
+	          		    	//do something
+	          		   		window.location.href = "/";
+	          		  	} });
+	            		
+	    			    
+	    			  } });
+	            } else {
+	                //alert(data.msg);
+	            	layer.alert(data.msg, {icon: 2});
+	            } 
+	        }
+	      })
+      
+   	 }
+      
+    })
+    
+    
+})
+
+  
+  
+
+</script>
+</body>
+<%}%>

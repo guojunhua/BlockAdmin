@@ -1,0 +1,125 @@
+<%var body = {
+	var formId = 'addForm' + object.code;
+	var url = '/form/doAdd/' + object.code;
+%>
+	
+
+	
+	
+	
+<body >
+    <div class="wrapper wrapper-content animated fadeInRight ibox-content">
+        <#form_h id="${formId}" type="add" objectCode="${object.code}" fixed="${fixed!}" object="${object}" />
+    </div>
+    
+   <!--  <div class="wrapper wrapper-content animated fadeInRight ibox-content">
+		<form class="form-horizontal m" id="form-role-add">
+			<div class="form-group">
+				<label class="col-sm-3 control-label ">角色名称：</label>
+				<div class="col-sm-8">
+					<input class="form-control" type="text" name="roleName" id="roleName" required>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-3 control-label">权限字符：</label>
+				<div class="col-sm-8">
+					<input class="form-control" type="text" name="roleKey" id="roleKey" required>
+					<span class="help-block m-b-none"><i class="fa fa-info-circle"></i> 控制器中定义的权限字符，如：@RequiresRoles("")</span>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-3 control-label">显示顺序：</label>
+				
+					<div class="col-sm-8">
+                            <select name="sex" class="form-control m-b">
+				                <option value="0">男</option>
+				                <option value="1">女</option>
+				                <option value="2">未知</option>
+				            </select>
+                        </div>
+				
+			</div>
+			<input name="deptId" type="hidden" id="treeId"/>
+            <h4 class="form-header h4">基本信息</h4>
+			<div class="form-group">
+				<label class="col-sm-3 control-label">状态：</label>
+				<div class="col-sm-8">
+			        <label class="toggle-switch switch-solid">
+                        <input type="checkbox" id="status" checked>
+                        <span></span>
+                    </label>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-3 control-label">备注：</label>
+				<div class="col-sm-8">
+					<input id="remark" name="remark" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-3 control-label">菜单权限</label>
+				<div class="col-sm-8">
+					<div id="menuTrees" class="ztree"></div>
+				</div>
+			</div>
+		</form>
+	</div> 
+ -->
+	
+    <div class="form-group  bb_form_bn" >
+        <div class="col-sm-offset-5 col-sm-10">
+            <button type="button" class="btn btn-sm btn-primary" onclick="submitHandler()"><i class="fa fa-check"></i>保 存</button>&nbsp;
+            <button type="button" class="btn btn-sm btn-danger" onclick="closeItem()"><i class="fa fa-reply-all"></i>关 闭 </button>
+        </div>
+    </div>
+	
+    <%if(session.user.isAdmin){// 仅超级管理员可见%>
+	    <div class="form-group " >
+	    	<br/>
+	        <div class="col-sm-offset-5 col-sm-10">
+	            <#design_button_h objectCode="${object.code}" formType="${VIEW_FORM!(PAGE_TYPE+'Form')}" />
+	            <br><br>
+	        </div>
+	    </div> 						
+	<%}%>
+	
+   
+ 
+</body>
+
+<script type="text/javascript">
+//lay 需要再审核得时候需要 返回 true/false 以关闭或者不关闭，如果
+function submitHandler(index, layero,andApprove) {//andApprove=1则顺带审批
+	
+	//$("#${formId}").submit();
+	
+
+	
+	  if ($.validate.form()) {
+		   if(andApprove === '1'){
+		  	$('#BB_PROCESS_APPROVAL').val('1');console.log('顺带审批吧');
+		  }else{
+			  $('#BB_PROCESS_APPROVAL').val('0');
+		  } 
+		  	
+		  	var frameName = window.name;//如果是tab iframe则名称模式： bb_tab_X
+			if(frameName.startsWith("bb_tab_"))
+				$.operate.saveTab("${url}", $('#${formId}').serialize());
+			else
+				$.operate.save("${url}", $('#${formId}').serialize());
+		  	
+     } 
+}
+
+$().ready(function() {
+	//$.validate.start("${url}",'${formId}'); 
+});
+
+
+</script>
+
+<%if(!isEmpty(object.diy_js!)){%>
+<script type="text/javascript" src="${object.diy_js}"></script>
+<%}%>
+
+<%};include("/eova/layout/default_form_h.html",{'title' : '新增' + object.name, 'layoutContent' : body, 'isEditor' : true,'type':'add'}){}%>

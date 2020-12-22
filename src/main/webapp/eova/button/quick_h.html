@@ -1,0 +1,202 @@
+<%layout("/eova/layout/default_h.html",{'title' : '添加按钮' }){%>
+
+<body >
+    
+    
+     <div class="wrapper wrapper-content animated fadeInRight ibox-content">
+		<form class="form-horizontal m" id="buttonForm">
+			<div class="form-group">
+				<label class="col-sm-2 control-label ">所属菜单编码：</label>
+				<div class="col-sm-9">
+					<#text_h id="menu_code" name="menu_code" value="${menuCode}"  isNoN="true" isReadonly='true' />
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-2 control-label">图标：</label>
+				<div class="col-sm-9">
+					<#icon_h id="icon" name="icon" value=""  />
+					<span class="help-block m-b-none"><i class="fa fa-info-circle"></i> (人靠衣装马靠鞍，选个图标高大上)</span>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-2 control-label">按钮名称：</label>
+				<div class="col-sm-9">
+					<#text_h id="name" name="name" value=""   /> 
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-2 control-label">按钮UI路径：</label>
+				<div class="col-sm-9">
+			       <#texts_h id="ui" name="ui" value="" placeholder="HTML文件路径 例：/pages/order/btn/print_h.html"  style="width:100%;height:80px;"  />
+                    <span class="help-block m-b-none"><i class="fa fa-info-circle"></i> HTML文件路径 例：/pages/order/btn/print_h.html ,其中“_h” 为当前模板类型</span>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-2 control-label">按钮BS路径：</label>
+				<div class="col-sm-9">
+					<#texts_h id="bs" name="bs" value="${menu.name!}" placeholder="服务端URI 例：\n/order/print;\n/order/print_data;\n推荐输入否则可能权限控制不让过" style="width:100%;height:90px;" />
+					<span class="help-block m-b-none"><i class="fa fa-info-circle"></i> 服务端URI 例：/order/print;/order/print_data;推荐输入否则可能权限控制不让过</span>
+					
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-2 control-label">分配给角色</label>
+				<div class="col-sm-9">
+					<#combo_h id="role" name="role" code="eova_user_code" field="rid" multiple="true" value="1" />
+					<span class="help-block m-b-none"><i class="fa fa-info-circle"></i> 可多选</span>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-2 control-label">FORM名字</label>
+				<div class="col-sm-9">
+					 <#text_h id="form_code" name="form_code" value=""  placeholder="请填写元对象编辑的form名，例如：xxForm" />
+					<span class="help-block m-b-none"><i class="fa fa-info-circle"></i> 请填写元对象编辑的form名，例如：xxForm（只在第三种情况下需要）</span>
+				</div>
+			</div>
+			
+			<div class="form-group bb_form_bn">
+				<div class="col-sm-offset-5 col-sm-10">
+		            <button type="button" class="btn btn-sm btn-primary" onclick="diy()"><i class="fa fa-check"></i>DIY新增</button>&nbsp;
+		        </div>
+			</div>
+			
+			<div class="form-group bb_form_bn" >
+				<div class="col-sm-offset-5 col-sm-10">
+		            <button type="button" class="btn btn-sm btn-primary" onclick="add()"><i class="fa fa-check"></i>copy新增</button>&nbsp;
+		             <button type="button" class="btn btn-sm btn-primary" onclick="edit()"><i class="fa fa-check"></i>copy编辑</button>&nbsp;
+		              <button type="button" class="btn btn-sm btn-primary" onclick="detail()"><i class="fa fa-check"></i>copy详情</button>&nbsp;
+		        </div>
+			</div>
+			
+			<div class="form-group bb_form_bn" >
+				<div class="col-sm-offset-5 col-sm-10">
+		            <button type="button" class="btn btn-sm btn-primary" onclick="edit_like()"><i class="fa fa-check"></i>新增编辑按钮</button>&nbsp;
+		            <button type="button" class="btn btn-sm btn-danger" onclick="closeItem()"><i class="fa fa-reply-all"></i>关 闭 </button>
+		        </div>
+			</div>
+			
+			
+			<div class="form-group">
+			<div class="col-sm-offset-1 col-sm-10">
+				<font size="3" face="arial" color="red">
+3种情况（对应三组按钮）：<br>
+1、DIY新增（只负责录入数据，都要用户自行提供）<br>
+2、copy自系统得 新增、编辑、详情 供二次开发（觉得界面不能满足需求）(只需要填写 按钮名称 和 FORM名字(可选用来指定系统设计好的form视图))<br>
+3、只生成编辑按钮HTML（比如基于编辑页面做审核功能）(只需图标、名称、FORM名字三个参数即可)<br>
+
+</font>
+			</div>
+			</div>
+			
+		</form>
+	</div> 
+
+	
+  
+ 
+</body>
+
+<script type="text/javascript">
+
+
+function diy(){
+	var name =  $("#name").val();
+	 var ui =  $("#ui").val();
+		 
+	 if(name ==''){
+		 layer.msg('按钮名称未填', {icon: 5}, {anim:1});
+		 return false;;
+	 }
+	 if(ui ==''){
+		 layer.msg('按钮UI路径未填', {icon: 5}, {anim:1});
+		 return false;
+	 }
+	 
+	// alert('tijiao');
+		  //提交数据
+		  submitNow();
+		  return false; //阻止表单跳转。如果需要表单跳转，去掉这段即可。
+	
+}
+function add(){
+	submitQuick('新增');
+	  //提交数据
+	  
+	  return false; //阻止表单跳转。如果需要表单跳转，去掉这段即可。
+	
+}
+function edit(){
+	submitQuick('修改');
+	  
+		return false; //阻止表单跳转。如果需要表单跳转，去掉这段即可。
+	
+}
+function detail(){
+	submitQuick('查看');
+	  
+    
+	  //提交数据
+	  
+	  return false; //阻止表单跳转。如果需要表单跳转，去掉这段即可。
+}
+function edit_like(){
+	var form_code =  $("#form_code").val();
+
+		 
+	 if(form_code ==''){
+		 layer.msg('FORM名字未填', {icon: 5}, {anim:1});
+		 return false;;
+	 }
+
+	
+	submitQuick('修改',0);
+	  
+
+		  //提交数据
+		  
+		  return false; //阻止表单跳转。如果需要表单跳转，去掉这段即可。
+}
+
+
+
+
+
+var $form = $('#buttonForm');
+var submitNow = function() {
+	var url = "/button/doQuick";
+
+	
+	$.post(url, $.getFormParasObj($form), function(result) {
+		$.operate.successCallback(result);
+	}, 'json');
+};	
+	
+
+var submitQuick = function(srcName,isNewPage) {//默认新页面
+	var name =  $("#name").val();
+	var form_code =  $("#form_code").val();
+	 if(name ==''){
+
+		 layer.msg('按钮名称未填', {icon: 5}, {anim:1});
+		 return false;;
+	 }
+	 if(isNewPage == null)
+		 isNewPage = 1;
+	
+	
+	 
+	 
+	
+	//执行ajax
+	var url = '/button/copyBtn/${menuCode}-${objectCode!}?srcName='+srcName+'&newName='+name+'&isNewPage='+isNewPage;
+	$.post(url, $.getFormParasObj($form), function(result) {
+		
+		$.operate.successCallback(result);
+	 
+	 }, 'json');
+}
+
+
+</script>
+
+<%}%>

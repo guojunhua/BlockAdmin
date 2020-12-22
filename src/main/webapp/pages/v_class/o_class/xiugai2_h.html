@@ -1,0 +1,1038 @@
+<!DOCTYPE html>
+<html>
+<head>
+	
+	<title>编辑班级</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="renderer" content="webkit">
+ 	<link href="/ui_h/css/bootstrap.min.css" rel="stylesheet"/>
+	<link href="/ui_h/css/font-awesome.min.css" rel="stylesheet"/>
+	<!-- bootstrap-table 表格插件样式 -->
+	<link href="/ui_h/ajax/libs/bootstrap-table/bootstrap-table.min.css" rel="stylesheet"/>
+	<link href="/ui_h/css/animate.css" rel="stylesheet"/>
+	<link href="/ui_h/css/style.css" rel="stylesheet"/>
+	<link href="/ui_h/bb/css/ry-ui.css" rel="stylesheet"/>
+<!--  	<link href="http://demo.ruoyi.vip/ajax/libs/jquery-ztree/3.5/css/metro/zTreeStyle.css" rel="stylesheet"/> -->
+ 	
+ 	
+
+ 	
+    <!-- 全局js -->
+    <script src="/ui_h/js/jquery.min.js"></script>
+<!--     <script src="/ui_h/ajax/libs/fileinput/js/jquery.min.js"></script> -->
+	<script src="/ui_h/js/bootstrap.min.js"></script>
+	
+
+	<!-- bootstrap-table 表格插件 -->
+	<script src="/ui_h/ajax/libs/bootstrap-table/bootstrap-table.min.js"></script>
+	<script src="/ui_h/ajax/libs/bootstrap-table/locale/bootstrap-table-zh-CN.min.js"></script>
+	<script src="/ui_h/ajax/libs/bootstrap-table/extensions/mobile/bootstrap-table-mobile.js"></script>
+	<script src="/ui_h/ajax/libs/bootstrap-table/extensions/toolbar/bootstrap-table-toolbar.min.js"></script>
+	<script src="/ui_h/ajax/libs/bootstrap-table/extensions/columns/bootstrap-table-fixed-columns.js"></script>
+	<!-- jquery-validate 表单验证插件 -->
+	<script src="/ui_h/ajax/libs/validate/jquery.validate.js"></script>
+<!-- 	<script src="http://static.runoob.com/assets/jquery-validation-1.14.0/dist/jquery.validate.min.js"></script> -->
+	<script src="/ui_h/ajax/libs/validate/messages_zh.min.js"></script>
+	<script src="/ui_h/ajax/libs/validate/jquery.validate.extend.js"></script>
+	
+<!-- 	<script src="/ui_h/ajax/libs/validate/jquery.metadata.js"></script> -->
+	
+	<!-- jquery-validate 表单树插件 -->
+	<script src="/ui_h/ajax/libs/bootstrap-treetable/bootstrap-treetable.js"></script>
+	<!-- jquery-export 表格导出插件 -->
+	<script src="/ui_h/ajax/libs/bootstrap-table/extensions/export/bootstrap-table-export.js"></script>
+	<script src="/ui_h/ajax/libs/bootstrap-table/extensions/export/tableExport.js"></script>
+	<!-- 遮罩层 -->
+	<script src="/ui_h/ajax/libs/blockUI/jquery.blockUI.js"></script>
+    <script src="/ui_h/ajax/libs/iCheck/icheck.min.js"></script>
+	<script src="/ui_h/ajax/libs/layer/layer.min.js"></script>
+	<script src="/ui_h/ajax/libs/layui/layui.js"></script>
+	<script src="/ui_h/bb/js/common.js?v=4.1.0"></script>
+	<script src="/ui_h/bb/js/ry-ui.js?v=4.1.0"></script>
+    
+    
+    
+    <link href="/ui_h/ajax/libs/iCheck/custom.css" rel="stylesheet"/>
+    <link href="/ui_h/ajax/libs/iCheck/icheck-bootstrap.min.css" rel="stylesheet"/>
+	
+ 	<link href="/ui_h/ajax/libs/select2/select2.css" rel="stylesheet"/>
+    <link href="/ui_h/ajax/libs/select2/select2-bootstrap.css" rel="stylesheet"/>
+    
+    <link  href="/ui_h/ajax/libs/switchery/switchery.css" rel="stylesheet"/>
+    <!-- 富文本 summernote -->
+    <link href="/ui_h/ajax/libs/summernote/summernote.css" rel="stylesheet"/>
+	<link href="/ui_h/ajax/libs/summernote/summernote-bs3.css" rel="stylesheet"/>
+<!--  	<link href="/ui_h/css/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css" rel="stylesheet">-->    
+ 	<link href="/ui_h/ajax/libs/bootstrap-fileinput/fileinput.min.css" rel="stylesheet"/>    
+ 	
+<!--  	<link href="/ui_h/ajax/libs/fileinput/css/default.css" rel="stylesheet" type="text/css" > 
+	<link href="/ui_h/ajax/libs/fileinput/css/fileinput.css" rel="stylesheet" type="text/css" />	-->
+ 	
+	<link href="/ui_h/ajax/libs/treeview/bootstrap-treeview.min.css" rel="stylesheet"/>    
+	<link href="/ui_h/ajax/libs/jquery-ztree/3.5/css/metro/zTreeStyle.css" rel="stylesheet"/>
+	<link href="/ui_h/ajax/libs/datapicker/bootstrap-datetimepicker.min.css" rel="stylesheet"/>
+	
+	
+	
+    <!-- 开关  -->
+    <script src="/ui_h/ajax/libs/switchery/switchery.js" type="text/javascript"></script>
+    
+    <!-- 富文本 summernote -->
+  	<script src="/ui_h/ajax/libs/summernote/summernote.min.js"></script>
+	<script src="/ui_h/ajax/libs/summernote/summernote-zh-CN.js"></script>
+	<!-- 文件上传(图片和文件) -->
+	<script src="/ui_h/ajax/libs/bootstrap-fileinput/fileinput.js"></script>
+	<script src="/ui_h/ajax/libs/bootstrap-fileinput/piexif.min.js"></script>
+    
+   <!--  <script src="/ui_h/ajax/libs/fileinput/js/fileinput.js" type="text/javascript"></script>
+    <script src="/ui_h/ajax/libs/fileinput/js/fileinput_locale_zh.js" type="text/javascript"></script> -->
+    
+    <script src="/ui_h/ajax/libs/select2/select2.js"></script>
+    
+    <!-- treeview -->
+	<script src="/ui_h/ajax/libs/treeview/bootstrap-treeview.min.js"></script>
+	<script src="/ui_h/ajax/libs/jquery-ztree/3.5/js/jquery.ztree.all-3.5.js"></script>
+	
+	<!-- datetimepicker -->
+	<script src="/ui_h/ajax/libs/datapicker/bootstrap-datetimepicker.min.js"></script>
+	
+	
+    
+    <!-- 老的api -->
+<script type="text/javascript" src="/ui/js/common.js"></script>
+<script type="text/javascript" src="/ui/js/string.js"></script>
+<script type="text/javascript" src="/ui2/src/layui.js"></script>
+<script type="text/javascript" src="/plugins/easyui/jquery.easyui.min.js"></script>
+<script type="text/javascript" src="/plugins/easyui/locale/easyui-lang-zh_CN.js"></script>
+<script type="text/javascript" src="/plugins/format/jsformat.js"></script>
+<script type="text/javascript" src="/ui/easy/easy.min.js"></script>
+<script type="text/javascript" src="/ui/eova/eova.min.js"></script>
+<script type="text/javascript" src="/ui/eova/src/eova.find.js"></script>
+<script>
+String.prototype.replaceAll  = function(s1,s2){     
+    return this.replace(new RegExp(s1,"gm"),s2);     
+} 
+// 全局JS常量配置
+var IMG = "${IMG!}";
+var FILE = "${FILE!}";
+var FILE_MAX = "${UPLOAD_FILE_SIZE!}";
+var IMG_MAX = "${UPLOAD_IMG_SIZE!}";
+
+//类似 .jpg|.gif|.png|.bmp=>gif,jpg,jpeg,bmp,png
+var UPLOAD_IMG_TYPE = "${UPLOAD_IMG_TYPE!}".replaceAll('\\.', '');
+var UPLOAD_FILE_TYPE = "${UPLOAD_FILE_TYPE!}".replaceAll('\\.', '');
+//刷新此页面
+var refresh = function() {
+	location.reload();
+};
+
+//页面类型 add/update/detail/examine ,会优先从xxForm 中提取xx,静态页面有page变量，第3 PAGE_TYPE：add/update/detail/examine,（程序里边已经处理）
+var PAGE_TYPE = "${PAGE_TYPE!}";
+
+//监听页面大小
+var layerInitWidth;
+var layerInitHeight;
+var ctx = "/";
+</script>
+<style>
+</style>
+</head>
+
+    <link href="/ui_h/ajax/libs/iCheck/custom.css" rel="stylesheet"/>
+	
+
+    
+    <link  href="/ui_h/ajax/libs/switchery/switchery.css" rel="stylesheet"/>
+    <!-- 富文本 summernote -->
+    <link href="/ui_h/ajax/libs/summernote/summernote.css" rel="stylesheet"/>
+	<link href="/ui_h/ajax/libs/summernote/summernote-bs3.css" rel="stylesheet"/>
+<!--  	<link href="/ui_h/css/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css" rel="stylesheet"> -->
+ 	<link href="/ui_h/ajax/libs/bootstrap-fileinput/fileinput.min.css" rel="stylesheet"/>       
+	<link href="/ui_h/ajax/libs/treeview/bootstrap-treeview.min.css" rel="stylesheet"/>    
+	<link href="/ui_h/ajax/libs/jquery-ztree/3.5/css/metro/zTreeStyle.css" rel="stylesheet"/>
+	<link href="/ui_h/ajax/libs/datapicker/bootstrap-datetimepicker.min.css" rel="stylesheet"/>
+	<link href="/ui_h/ajax/libs/webuploader-0.1.5/webuploader.css" rel="stylesheet" type="text/css" >
+	
+	
+	
+    <!-- 开关  -->
+    <script src="/ui_h/ajax/libs/switchery/switchery.js" type="text/javascript"></script>
+    
+    <!-- 富文本 summernote -->
+  	<script src="/ui_h/ajax/libs/summernote/summernote.min.js"></script>
+	<script src="/ui_h/ajax/libs/summernote/summernote-zh-CN.js"></script>
+	<!-- 文件上传(图片和文件) -->
+	<script src="/ui_h/ajax/libs/bootstrap-fileinput/fileinput.js"></script>
+	<script src="/ui_h/ajax/libs/bootstrap-fileinput/piexif.min.js"></script>
+    
+
+    
+    <!-- treeview -->
+	<script src="/ui_h/ajax/libs/treeview/bootstrap-treeview.min.js"></script>
+	<script src="/ui_h/ajax/libs/jquery-ztree/3.5/js/jquery.ztree.all-3.5.js"></script>
+	
+	<!-- datetimepicker -->
+	<script src="/ui_h/ajax/libs/datapicker/bootstrap-datetimepicker.min.js"></script>
+	<!--引入百度文件上传webuploader-->
+	<script src="/ui_h/ajax/libs/webuploader-0.1.5/webuploader.js" type="text/javascript" ></script>
+<body>
+<div class="wrapper wrapper-content animated fadeInRight ibox-content">
+<form class="form-horizontal m" id="updateFormo_class" name="updateFormo_class" method="post">
+
+<span style="color: red; ">我是生成页面，让您二次修改</span>
+
+
+                
+
+
+
+<input type="hidden" id="id" name="id" value="${@record.get('id')}" />
+
+					
+                     
+
+
+
+
+			
+			 
+               
+                <div class="form-group">
+					<label class="col-sm-2 control-label "><font size="4" face="arial" color="red">*</font>名称：</label>
+					<div class="col-sm-9">
+<input type="text" id="name" name="name" class="form-control required=true" value="${@record.get('name')}"  aria-invalid="false"  placeholder=""  required=true>						<span class="help-block m-b-none"></span>
+					</div>
+				</div>
+			
+
+					
+                     
+
+
+
+
+			
+			 
+               
+                <div class="form-group">
+					<label class="col-sm-2 control-label "><font size="4" face="arial" color="red">*</font>班级号：</label>
+					<div class="col-sm-9">
+<input type="text" id="class_no" name="class_no" class="form-control required=true digits=true" value="${@record.get('class_no')}"  aria-invalid="false"  placeholder=""  required=true digits=true>						<span class="help-block m-b-none"></span>
+					</div>
+				</div>
+			
+
+					
+                     
+
+
+
+
+			
+			 
+               
+                <div class="form-group">
+					<label class="col-sm-2 control-label "><font size="4" face="arial" color="red">*</font>年级：</label>
+					<div class="col-sm-9">
+
+
+<div class="input-group">
+<select id="grade" name="grade" data-placeholder="请选择" class="form-control m-b"    url0="/widget/comboJson/o_class-grade"  pid="" defaultValue="${@record.get('grade')}" required=true>
+</select>
+</div>
+<script type="text/javascript">
+
+var grade_init= function(isFirst,defaultValue){
+	//清除本节点数据（子节点也要执行初始）
+	$("#grade").empty();
+	//console.log('初始节点：grade');
+	if(isFirst == null)
+		isFirst = false;
+	
+	var parent = $('select[id="grade"]').attr("pid");
+	var parentVal = null;
+	if(typeof(parent) != "undefined" && parent!= ''){//取父节点值（要么用值 其次用 默认值）,如果父节点存在才算有父亲
+		if ( $("#"+parent).length > 0 ) {//存在父节点
+			parentVal = $('select[id="'+parent+'"]').val();
+			//if(parentVal == null || parentVal ==''){
+			//	parentVal =$('select[id="'+parent+'"]').attr("defaultValue");
+			//}
+		}else{
+			parent = null;
+		}
+	}else{
+		parent = null;
+	}
+	
+	if(parent != null){//存在父节点
+		if(parentVal != null && parentVal!=''){//加载
+			
+		}else{//不加载
+			return;
+		}
+	}else{//加载全部
+		
+	}
+	
+
+	var limit = null;
+	if("" != ""){
+		limit = "".split(','); 
+	}
+	
+	var url = '/widget/comboJson/o_class-grade';
+	if(parentVal != null && parentVal != '')
+		url += '?query_'+parent+'='+parentVal;
+ 	$.ajax({
+		url : url,
+		dataType: "json",
+		type : 'get',
+		success : function(data) {
+			
+			var objects = eval(data);
+			var pidKey = parent;
+			var pidValue = parentVal;
+			//判断是否有
+			//select areaId ID,areaName CN,parentid p_id from table//如果存在ID，CN之外的字段则认为是关联的,并且指定了父节点是谁
+			
+			
+			if(pidKey != null){
+				 //如果存在 
+				 if(typeof($('select[id="grade"]').attr("pid")) == "undefined" ){
+					 $('select[id="grade"]').attr("pid",pidKey);
+				 }
+				pidValue = $('select[id="'+pidKey+'"]').val();
+			}
+			//检测父节点是否有值才渲染|| 无父节点也渲染
+			//console.log('pidValue:'+pidValue);
+			if(pidKey == null
+					|| (pidValue != null && pidValue!= '')){
+				
+			
+				var obj = document.getElementById("grade");
+				$(objects).each(
+						function(index) {
+							
+							if(index == 0){	
+								$("#grade").append('<option value="">请选择</option>');
+							}
+							
+							
+							
+							
+							
+							var object = objects[index];
+							
+							//disabled
+							var disabled = "";
+							if(limit != null){
+								var limitOneIndex = $.findArray(limit,object.id);
+								if(limitOneIndex==-1)
+									disabled = "disabled";	
+							}
+							if(pidKey == null){
+								var optionStr = "";
+								
+								
+								optionStr += "<option value='" + object.id + "' "+disabled+">"
+										+ object.cn + "</option>";
+								$("#grade").append(optionStr);
+								
+								//$("#grade").add(new Option(object.id, object.cn));
+							}else{
+								 if(object[pidKey] == pidValue){
+									var optionStr = "";
+									optionStr += "<option value='" + object.id + "' "+disabled+">"
+											+ object.cn + "</option>";
+									$("#grade").append(optionStr);
+									
+									//$("#grade").add(new Option(object.id, object.cn));
+									//$("#select_id").append("<option value='value'>text</option>");
+								}
+							}
+						});
+				
+				
+			
+				
+					//默认值用 1、传值 2、字段默认值 使用完记得把字段 defaultValue置为空
+					if(!defaultValue){
+						defaultValue =  $('select[id="grade"]').attr("defaultValue");
+					}
+					
+					if(defaultValue &&typeof(defaultValue) != "undefined" && parent!= ''){
+						//console.log('设置grade默认值：'+defaultValue);
+				    	$('select[id="grade"]').val(defaultValue.split(','));
+				    	$('select[id="grade"]').attr("defaultValue",'');
+					}
+					
+				
+				
+				
+			}
+			
+			// $("#grade").trigger("chosen:updated");
+            // $("#grade").chosen();
+			//renderForm();//由于前部还有一个重置options的操作
+			
+			//检查是否有子节点需要刷新数据
+			  var pid = $('select[pid="grade"]');
+			  if(pid.length != 0){
+				  //关联初始
+				  var funName = pid.attr("id")+"_init";
+				  //grade_init
+				  if(isExitsFunction(funName) ){
+					  //funName();
+					  //alert(funName);
+		    	  		//dataDone(res, curr, count,is_single);
+					  eval(funName+"();");
+
+		    	  	}
+			  }
+		}
+	});
+}	
+
+
+$(function(){
+	//单节点||级联节点第一节点 需要主动初始
+	//var son = $('select[pid="grade"]');
+	//var parent = $('select[pid="grade"]');
+	grade_init(true,"${@record.get('grade')}");
+
+
+	//https://github.com/select2/select2/issues/3387
+	$("#grade").on("select2:opening", function (e) {
+	    if($(this).attr('readonly') || $(this).is(':hidden')){
+	    e.preventDefault();
+	    }
+	});
+	
+	//复选按选中得顺序排序  https://blog.csdn.net/Learn_1992/article/details/82985182
+	$("#grade").on("select2:select", function (evt) {
+		  var element = evt.params.data.element;
+		  var $element = $(element);
+		  
+		  $element.detach();
+		  $(this).append($element);
+		  $(this).trigger("change");
+	});
+	
+ 	
+ 	$('#grade').on('change', function(e, params) {
+ 		console.log('change');
+ 		
+ 		 //检查是否有子节点需要刷新数据
+		  var pid = $('select[pid="grade"]');
+		  if(pid.length != 0){
+			  //关联初始
+			  var funName = pid.attr("id")+"_init";
+			  //grade_init
+			  if(isExitsFunction(funName) ){
+				  //funName();
+				  //alert(funName);
+        	  		//dataDone(res, curr, count,is_single);
+				  eval(funName+"();");
+
+        	  	}
+		  }
+	});
+ 	
+ 	
+ 
+ 	
+});
+
+
+</script>
+    
+
+						<span class="help-block m-b-none"></span>
+					</div>
+				</div>
+			
+
+					
+                     
+
+
+
+
+			
+			 
+               
+                <div class="form-group">
+					<label class="col-sm-2 control-label ">状态：</label>
+					<div class="col-sm-9">
+
+
+<div class="input-group">
+<select id="status" name="status" data-placeholder="请选择" class="form-control m-b"    url0="/widget/comboJson/o_class-status"  pid="" defaultValue="${@record.get('status')}" >
+</select>
+</div>
+<script type="text/javascript">
+
+var status_init= function(isFirst,defaultValue){
+	//清除本节点数据（子节点也要执行初始）
+	$("#status").empty();
+	//console.log('初始节点：status');
+	if(isFirst == null)
+		isFirst = false;
+	
+	var parent = $('select[id="status"]').attr("pid");
+	var parentVal = null;
+	if(typeof(parent) != "undefined" && parent!= ''){//取父节点值（要么用值 其次用 默认值）,如果父节点存在才算有父亲
+		if ( $("#"+parent).length > 0 ) {//存在父节点
+			parentVal = $('select[id="'+parent+'"]').val();
+			//if(parentVal == null || parentVal ==''){
+			//	parentVal =$('select[id="'+parent+'"]').attr("defaultValue");
+			//}
+		}else{
+			parent = null;
+		}
+	}else{
+		parent = null;
+	}
+	
+	if(parent != null){//存在父节点
+		if(parentVal != null && parentVal!=''){//加载
+			
+		}else{//不加载
+			return;
+		}
+	}else{//加载全部
+		
+	}
+	
+
+	var limit = null;
+	if("" != ""){
+		limit = "".split(','); 
+	}
+	
+	var url = '/widget/comboJson/o_class-status';
+	if(parentVal != null && parentVal != '')
+		url += '?query_'+parent+'='+parentVal;
+ 	$.ajax({
+		url : url,
+		dataType: "json",
+		type : 'get',
+		success : function(data) {
+			
+			var objects = eval(data);
+			var pidKey = parent;
+			var pidValue = parentVal;
+			//判断是否有
+			//select areaId ID,areaName CN,parentid p_id from table//如果存在ID，CN之外的字段则认为是关联的,并且指定了父节点是谁
+			
+			
+			if(pidKey != null){
+				 //如果存在 
+				 if(typeof($('select[id="status"]').attr("pid")) == "undefined" ){
+					 $('select[id="status"]').attr("pid",pidKey);
+				 }
+				pidValue = $('select[id="'+pidKey+'"]').val();
+			}
+			//检测父节点是否有值才渲染|| 无父节点也渲染
+			//console.log('pidValue:'+pidValue);
+			if(pidKey == null
+					|| (pidValue != null && pidValue!= '')){
+				
+			
+				var obj = document.getElementById("status");
+				$(objects).each(
+						function(index) {
+							
+							if(index == 0){	
+								$("#status").append('<option value="">请选择</option>');
+							}
+							
+							
+							
+							
+							
+							var object = objects[index];
+							
+							//disabled
+							var disabled = "";
+							if(limit != null){
+								var limitOneIndex = $.findArray(limit,object.id);
+								if(limitOneIndex==-1)
+									disabled = "disabled";	
+							}
+							if(pidKey == null){
+								var optionStr = "";
+								
+								
+								optionStr += "<option value='" + object.id + "' "+disabled+">"
+										+ object.cn + "</option>";
+								$("#status").append(optionStr);
+								
+								//$("#status").add(new Option(object.id, object.cn));
+							}else{
+								 if(object[pidKey] == pidValue){
+									var optionStr = "";
+									optionStr += "<option value='" + object.id + "' "+disabled+">"
+											+ object.cn + "</option>";
+									$("#status").append(optionStr);
+									
+									//$("#status").add(new Option(object.id, object.cn));
+									//$("#select_id").append("<option value='value'>text</option>");
+								}
+							}
+						});
+				
+				
+			
+				
+					//默认值用 1、传值 2、字段默认值 使用完记得把字段 defaultValue置为空
+					if(!defaultValue){
+						defaultValue =  $('select[id="status"]').attr("defaultValue");
+					}
+					
+					if(defaultValue &&typeof(defaultValue) != "undefined" && parent!= ''){
+						//console.log('设置status默认值：'+defaultValue);
+				    	$('select[id="status"]').val(defaultValue.split(','));
+				    	$('select[id="status"]').attr("defaultValue",'');
+					}
+					
+				
+				
+				
+			}
+			
+			// $("#status").trigger("chosen:updated");
+            // $("#status").chosen();
+			//renderForm();//由于前部还有一个重置options的操作
+			
+			//检查是否有子节点需要刷新数据
+			  var pid = $('select[pid="status"]');
+			  if(pid.length != 0){
+				  //关联初始
+				  var funName = pid.attr("id")+"_init";
+				  //status_init
+				  if(isExitsFunction(funName) ){
+					  //funName();
+					  //alert(funName);
+		    	  		//dataDone(res, curr, count,is_single);
+					  eval(funName+"();");
+
+		    	  	}
+			  }
+		}
+	});
+}	
+
+
+$(function(){
+	//单节点||级联节点第一节点 需要主动初始
+	//var son = $('select[pid="status"]');
+	//var parent = $('select[pid="status"]');
+	status_init(true,"${@record.get('status')}");
+
+
+	//https://github.com/select2/select2/issues/3387
+	$("#status").on("select2:opening", function (e) {
+	    if($(this).attr('readonly') || $(this).is(':hidden')){
+	    e.preventDefault();
+	    }
+	});
+	
+	//复选按选中得顺序排序  https://blog.csdn.net/Learn_1992/article/details/82985182
+	$("#status").on("select2:select", function (evt) {
+		  var element = evt.params.data.element;
+		  var $element = $(element);
+		  
+		  $element.detach();
+		  $(this).append($element);
+		  $(this).trigger("change");
+	});
+	
+ 	
+ 	$('#status').on('change', function(e, params) {
+ 		console.log('change');
+ 		
+ 		 //检查是否有子节点需要刷新数据
+		  var pid = $('select[pid="status"]');
+		  if(pid.length != 0){
+			  //关联初始
+			  var funName = pid.attr("id")+"_init";
+			  //status_init
+			  if(isExitsFunction(funName) ){
+				  //funName();
+				  //alert(funName);
+        	  		//dataDone(res, curr, count,is_single);
+				  eval(funName+"();");
+
+        	  	}
+		  }
+	});
+ 	
+ 	
+ 
+ 	
+});
+
+
+</script>
+    
+
+						<span class="help-block m-b-none"></span>
+					</div>
+				</div>
+			
+
+					
+                     
+
+
+
+
+			
+			 
+               
+                <div class="form-group">
+					<label class="col-sm-2 control-label ">创建人：</label>
+					<div class="col-sm-9">
+
+
+<div class="input-group">
+<select id="create_user" name="create_user" data-placeholder="请选择" class="form-control m-b"    url0="/widget/comboJson/o_class-create_user" readonly pid="" defaultValue="${@record.get('create_user')}" >
+</select>
+</div>
+<script type="text/javascript">
+
+var create_user_init= function(isFirst,defaultValue){
+	//清除本节点数据（子节点也要执行初始）
+	$("#create_user").empty();
+	//console.log('初始节点：create_user');
+	if(isFirst == null)
+		isFirst = false;
+	
+	var parent = $('select[id="create_user"]').attr("pid");
+	var parentVal = null;
+	if(typeof(parent) != "undefined" && parent!= ''){//取父节点值（要么用值 其次用 默认值）,如果父节点存在才算有父亲
+		if ( $("#"+parent).length > 0 ) {//存在父节点
+			parentVal = $('select[id="'+parent+'"]').val();
+			//if(parentVal == null || parentVal ==''){
+			//	parentVal =$('select[id="'+parent+'"]').attr("defaultValue");
+			//}
+		}else{
+			parent = null;
+		}
+	}else{
+		parent = null;
+	}
+	
+	if(parent != null){//存在父节点
+		if(parentVal != null && parentVal!=''){//加载
+			
+		}else{//不加载
+			return;
+		}
+	}else{//加载全部
+		
+	}
+	
+
+	var limit = null;
+	if("" != ""){
+		limit = "".split(','); 
+	}
+	
+	var url = '/widget/comboJson/o_class-create_user';
+	if(parentVal != null && parentVal != '')
+		url += '?query_'+parent+'='+parentVal;
+ 	$.ajax({
+		url : url,
+		dataType: "json",
+		type : 'get',
+		success : function(data) {
+			
+			var objects = eval(data);
+			var pidKey = parent;
+			var pidValue = parentVal;
+			//判断是否有
+			//select areaId ID,areaName CN,parentid p_id from table//如果存在ID，CN之外的字段则认为是关联的,并且指定了父节点是谁
+			
+			
+			if(pidKey != null){
+				 //如果存在 
+				 if(typeof($('select[id="create_user"]').attr("pid")) == "undefined" ){
+					 $('select[id="create_user"]').attr("pid",pidKey);
+				 }
+				pidValue = $('select[id="'+pidKey+'"]').val();
+			}
+			//检测父节点是否有值才渲染|| 无父节点也渲染
+			//console.log('pidValue:'+pidValue);
+			if(pidKey == null
+					|| (pidValue != null && pidValue!= '')){
+				
+			
+				var obj = document.getElementById("create_user");
+				$(objects).each(
+						function(index) {
+							
+							if(index == 0){	
+								$("#create_user").append('<option value="">请选择</option>');
+							}
+							
+							
+							
+							
+							
+							var object = objects[index];
+							
+							//disabled
+							var disabled = "";
+							if(limit != null){
+								var limitOneIndex = $.findArray(limit,object.id);
+								if(limitOneIndex==-1)
+									disabled = "disabled";	
+							}
+							if(pidKey == null){
+								var optionStr = "";
+								
+								
+								optionStr += "<option value='" + object.id + "' "+disabled+">"
+										+ object.cn + "</option>";
+								$("#create_user").append(optionStr);
+								
+								//$("#create_user").add(new Option(object.id, object.cn));
+							}else{
+								 if(object[pidKey] == pidValue){
+									var optionStr = "";
+									optionStr += "<option value='" + object.id + "' "+disabled+">"
+											+ object.cn + "</option>";
+									$("#create_user").append(optionStr);
+									
+									//$("#create_user").add(new Option(object.id, object.cn));
+									//$("#select_id").append("<option value='value'>text</option>");
+								}
+							}
+						});
+				
+				
+			
+				
+					//默认值用 1、传值 2、字段默认值 使用完记得把字段 defaultValue置为空
+					if(!defaultValue){
+						defaultValue =  $('select[id="create_user"]').attr("defaultValue");
+					}
+					
+					if(defaultValue &&typeof(defaultValue) != "undefined" && parent!= ''){
+						//console.log('设置create_user默认值：'+defaultValue);
+				    	$('select[id="create_user"]').val(defaultValue.split(','));
+				    	$('select[id="create_user"]').attr("defaultValue",'');
+					}
+					
+				
+				
+				
+			}
+			
+			// $("#create_user").trigger("chosen:updated");
+            // $("#create_user").chosen();
+			//renderForm();//由于前部还有一个重置options的操作
+			
+			//检查是否有子节点需要刷新数据
+			  var pid = $('select[pid="create_user"]');
+			  if(pid.length != 0){
+				  //关联初始
+				  var funName = pid.attr("id")+"_init";
+				  //create_user_init
+				  if(isExitsFunction(funName) ){
+					  //funName();
+					  //alert(funName);
+		    	  		//dataDone(res, curr, count,is_single);
+					  eval(funName+"();");
+
+		    	  	}
+			  }
+		}
+	});
+}	
+
+
+$(function(){
+	//单节点||级联节点第一节点 需要主动初始
+	//var son = $('select[pid="create_user"]');
+	//var parent = $('select[pid="create_user"]');
+	create_user_init(true,"${@record.get('create_user')}");
+
+
+	//https://github.com/select2/select2/issues/3387
+	$("#create_user").on("select2:opening", function (e) {
+	    if($(this).attr('readonly') || $(this).is(':hidden')){
+	    e.preventDefault();
+	    }
+	});
+	
+	//复选按选中得顺序排序  https://blog.csdn.net/Learn_1992/article/details/82985182
+	$("#create_user").on("select2:select", function (evt) {
+		  var element = evt.params.data.element;
+		  var $element = $(element);
+		  
+		  $element.detach();
+		  $(this).append($element);
+		  $(this).trigger("change");
+	});
+	
+ 	
+ 	$('#create_user').on('change', function(e, params) {
+ 		console.log('change');
+ 		
+ 		 //检查是否有子节点需要刷新数据
+		  var pid = $('select[pid="create_user"]');
+		  if(pid.length != 0){
+			  //关联初始
+			  var funName = pid.attr("id")+"_init";
+			  //create_user_init
+			  if(isExitsFunction(funName) ){
+				  //funName();
+				  //alert(funName);
+        	  		//dataDone(res, curr, count,is_single);
+				  eval(funName+"();");
+
+        	  	}
+		  }
+	});
+ 	
+ 	
+ 
+ 	
+});
+
+
+</script>
+    
+
+						<span class="help-block m-b-none"></span>
+					</div>
+				</div>
+			
+
+					
+                     
+
+                          
+                            <!-- <div class="hr-line-dashed"></div>
+                            
+                            <div class="form-group">
+                                <div class="col-sm-4 col-sm-offset-2">
+                                	
+							    	  <button class="btn btn-primary " type="button"><i class="fa fa-check"></i>&nbsp;保存内容</button>
+                                    
+<button class="btn btn-info formEdit" type="button"><i class="fa fa-paste"></i> 表单设计</button>
+<script type="text/javascript">
+//表单编辑
+$(".formEdit").click(function(){
+	var objectCode = 'o_class';
+	var formType = 'updateForm';
+	
+	if(objectCode.length >0){
+		//新窗口打开设计窗口 /form/design/o_class?template=lay
+		var url = "/form/design/"+objectCode+"?template=h";
+		if(formType != null && formType.length>0)
+			url = url+"&formType="+formType;
+		window.open(url);  
+	}
+	return false;
+});
+</script>                                    
+							    	  <button class="btn btn-white" type="submit">取消</button>
+                                </div>
+                            </div>
+                        -->
+                
+
+</form>
+<script>
+
+
+layui.use(['form','code'], function(){
+	  var form = layui.form; //只有执行了这一步，部分表单元素才会自动修饰成功
+	   $ = layui.$;
+	   
+       // 代码块
+       layui.code({
+           title: 'html',
+           encode: true,
+           about: false
+
+       });
+	
+       // 手动赋值
+       //$('select[name="简化多选+搜索+大小写敏感"]').val(['sing1', 'movie2']);
+       form.render();
+	  
+	  //但是，如果你的HTML是动态生成的，自动渲染就会失效
+	  //因此你需要在相应的地方，执行下述方法来手动渲染，跟这类似的还有 element.init();
+       form.on('submit(submit)', function(data){
+    		  //console.log(data.elem) //被执行事件的元素DOM对象，一般为button对象
+    		  //console.log(data.form) //被执行提交的form对象，一般在存在form标签时才会返回
+    		  //console.log(data.field) //当前容器的全部表单字段，名值对形式：{name: value}
+    		  //console.log(syntaxHighlight(data.field));
+    		  
+    		  //提交数据
+    		  submitNow(data);
+    		  return false; //阻止表单跳转。如果需要表单跳转，去掉这段即可。
+    		});
+	  
+	}); 
+
+// json 格式化+高亮
+function syntaxHighlight(json) {
+    if (typeof json != 'string') {
+        json = JSON.stringify(json, undefined, 2);
+    }
+    json = json.replace(/&/g, '&').replace(/</g, '<').replace(/>/g, '>');
+    return json.replace(/("(\\u[a-zA-Z0-9]{4}|\\[^u]|[^\\"])*"(\s*:)?|\b(true|false|null)\b|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?)/g, function(match) {
+        var cls = 'number';
+        if (/^"/.test(match)) {
+            if (/:$/.test(match)) {
+                cls = 'key';
+            } else {
+                cls = 'string';
+            }
+        } else if (/true|false/.test(match)) {
+            cls = 'boolean';
+        } else if (/null/.test(match)) {
+            cls = 'null';
+        }
+        return '<span class="' + cls + '">' + match + '</span>';
+    });
+}
+</script></div>
+
+
+
+<div class="row bb_form_bn" >
+        <div class="col-sm-offset-5 col-sm-10">
+            <button type="button" class="btn btn-sm btn-primary" onclick="submitHandler()"><i class="fa fa-check"></i>保 存</button>&nbsp;
+            <button type="button" class="btn btn-sm btn-danger" onclick="closeItem()"><i class="fa fa-reply-all"></i>关 闭 </button>
+        </div>
+</div>
+
+
+</body>
+
+<script type="text/javascript">
+function submitHandler(index, layero) {
+	//alert('tijiao');
+	$("#updateFormo_class").submit();
+	 //if ($.validate.form()) {
+		 	//var sHTML = $('.summernote').summernote('code');
+			//$("#noticeContent").val(sHTML);
+	//		$.operate.save("/form/doUpdate/o_class", $('#updateFormo_class').serialize());
+    // }
+}
+
+$().ready(function() {
+	$.validate.start("/form/doUpdate/o_class",'updateFormo_class'); 
+});
+</script>
+
+
+<script src="/ui_h/bb/js/content.js"></script>
+</html>

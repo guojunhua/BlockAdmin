@@ -1,0 +1,131 @@
+<%layout("/eova/layout/default_h.html",{'title' : object.name! + '列表'}){%>
+<%
+	var tree = menu.config.tree;
+%>
+ <link href="${CDN!STATIC!}/ui_h/ajax/libs/jquery-layout/jquery.layout-latest.css" rel="stylesheet"/>
+ <script src="${CDN!STATIC!}/ui_h/ajax/libs/jquery-layout/jquery.layout-latest.js"></script>
+<body class="gray-bg">
+	<div class="ui-layout-west">
+		<div class="box box-main">
+			<div class="box-header">
+				<div class="box-title">
+					<i class="fa icon-grid"></i> ${tree.treeName! '组织'}
+				</div>
+				<div class="box-tools pull-right">
+<!-- 				    <a type="button" class="btn btn-box-tool" href="#" onclick="dept()" title="管理部门"><i class="fa fa-edit"></i></a> -->
+					<button type="button" class="btn btn-box-tool" id="btnExpand" title="展开" style="display:none;"><i class="fa fa-chevron-up"></i></button>
+					<button type="button" class="btn btn-box-tool" id="btnCollapse" title="折叠"><i class="fa fa-chevron-down"></i></button>
+					<button type="button" class="btn btn-box-tool" id="btnRefresh" title="部门"><i class="fa fa-refresh"></i></button>
+				</div>
+			</div>
+			<div class="ui-layout-content">
+<!-- 				<div id="tree" class="ztree"></div> -->
+					<#tree_h id="master_tree" menuCode="${menu.code}" objectCode="${tree.objectCode}" idKey="${tree.idField}" nameKey="${tree.treeField}" pidKey="${tree.parentField}" iconKey="${tree.iconField!}" rootPid="${tree.rootPid}"  expandLevel="${tree.expandLevel!2}" />
+			</div>
+		</div>
+	</div>
+	
+	<div class="ui-layout-center">
+		<div class="container-div">
+			<div class="row">
+			<#query_h id="form_${object.id}" objectCode="${object.code}" object="${object}"  />
+				
+		     <%if(isEmpty(mode!)){//默认得才有菜单按钮%>
+			<div class="btn-group-sm" id="toolbar_${object.id}" role="group">
+				  <%for(btn in btnList){
+				  try{%>
+					 <%include(btn.ui,{'menu': menu, 'object':object, 'button': btn, 'gridId': 'grid','queryId':'queryForm'}){}%>
+				  <%}catch(error){%>
+				  <script type="text/javascript">
+				  layui.use(['layer'], function(){ layer.alert("按钮 '${btn.name}' 未能加载,请联系管理员.", {icon: 2});});
+				  </script>
+				  <%}}%>
+			  
+	            <% debug(session.user!);debug(object!); // 仅超级管理员可见%>
+        						<%if(session.user.isAdmin){%>
+        						<%include("/eova/button/btn/quick_h.html",{'menu': menu, 'object':object, 'queryId':'queryForm', 'parentId': 'grid'}){}%>
+        						<%include("/eova/button/btn/quick_objectFieldAuth_h.html",{'menu': menu, 'object':object, 'queryId':'queryForm', 'parentId': 'grid'}){}%>
+        						<%include("/eova/button/btn/quick_obj_h.html",{'menu': menu, 'object':object, 'queryId':'queryForm', 'parentId': 'grid'}){}%>
+				<%}%>
+	       
+	            
+	            
+            </div>
+			<%}%>
+		        
+		        <div class="col-sm-12 select-table table-striped">
+<!-- 				    <table id="bootstrap-table"></table> -->
+					<#grid_h id="grid_${object.id}" objectCode="${object.code}" toolbar="toolbar_${object.id}" menuCode="${menu.code}" isFirstLoad="false"/> 
+				</div>
+			</div>
+		</div>
+	</div>
+<script>
+
+$(function() {
+    var panehHidden = false;
+    if ($(this).width() < 769) {
+        panehHidden = true;
+    }
+    $('body').layout({ initClosed: panehHidden, west__size: 200 });
+   // queryUserList();
+    //queryDeptTree();
+});
+function treeNodeClicked(treeNode){
+	var id = treeNode.id;
+	//query_${menu.config.objectField};
+	
+	if($('#query_${menu.config.objectField}').length>0){
+		$("#query_${menu.config.objectField}").remove();
+	}
+	$('<input>').attr({
+	    type: 'hidden',
+	    id: 'query_${menu.config.objectField}',
+	    name: 'query_${menu.config.objectField}',
+	    value:treeNode.id
+	}).appendTo('form');
+	
+	refresh();
+}	
+
+
+		
+
+		
+		
+		
+		
+		$('#btnExpand').click(function() {
+			$._tree.expandAll(true);
+		    $(this).hide();
+		    $('#btnCollapse').show();
+		});
+		
+		$('#btnCollapse').click(function() {
+			$._tree.expandAll(false);
+		    $(this).hide();
+		    $('#btnExpand').show();
+		});
+		
+		$('#btnRefresh').click(function() {
+			//$._tree.reAsyncChildNodes();
+			
+			  /*强行异步加载父节点的子节点。[setting.async.enable = true 时有效]*/
+			 refresh_master_tree();
+		});
+
+		
+		function refresh(){
+			$.table.search();
+		}
+	</script>
+</body>
+
+<script type="text/javascript" src="${STATIC!}/ui/js/template.js"></script>
+<%if(!isEmpty(menu.diy_js!)){%>
+<script type="text/javascript" src="${menu.diy_js}"></script>
+<%}%>
+<%if(!isEmpty(object.diy_js!)){%>
+<script type="text/javascript" src="${object.diy_js}"></script>
+<%}%>
+<%}%>

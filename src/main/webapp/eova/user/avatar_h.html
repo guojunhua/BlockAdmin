@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org" >
+<head>
+	<meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="renderer" content="webkit">
+
+    <title>${APP.name} - 修改用户头像</title>
+
+    <meta name="keywords" content="${APP.keywords}">
+    <meta name="description" content="${APP.description}">
+	 <%include("/eova/include_h.html"){}%>
+	<link href="${STATIC!}/ui_h/ajax/libs/cropbox/cropbox.css" rel="stylesheet"/>
+	<script src="${STATIC!}/ui_h/ajax/libs/cropbox/cropbox.js"></script>
+	 
+</head>
+
+<body class="white-bg">
+    <div class="container"> 
+        <div class="imageBox"> 
+	        <div class="thumbBox"></div> 
+	        <div class="spinner" style="display: none">Loading...</div> 
+	   </div> 
+	   <div class="action"> 
+	       <div class="new-contentarea tc">
+	           <a href="javascript:void(0)" class="upload-img"> <label for="avatar">上传图像</label> </a> 
+	           <input type="file" class="" name="avatar" id="avatar" accept="image/*"/>
+	       </div> 
+	   <input type="button" id="btnCrop" class="Btnsty_peyton" value="裁切" /> 
+	   <input type="button" id="btnZoomIn" class="Btnsty_peyton" value="+" /> 
+	   <input type="button" id="btnZoomOut" class="Btnsty_peyton" value="-" /> 
+	   </div> 
+	   <div class="cropped"></div> 
+    </div>
+
+	
+
+<script type="text/javascript">
+var cropper;
+$(window).load(function() {
+	var avatar = '${user.userInfo.avatar!'/avatar/1475944038375.png'}';
+	var avatar_name = avatar.substring(avatar.lastIndexOf('/')+1);
+    var options = {
+        thumbBox: '.thumbBox',
+        spinner: '.spinner',
+        imgSrc: avatar,
+        name:avatar_name
+    }
+    cropper = $('.imageBox').cropbox(options);
+    $('#avatar').on('change', function() {
+        var reader = new FileReader();
+        reader.onload = function(e) {
+            options.imgSrc = e.target.result;
+            //根据MIME判断上传的文件是不是图片类型
+            if((options.imgSrc).indexOf("image/")==-1){
+                $.modal.alertWarning("文件格式错误，请上传图片类型,如：JPG，PNG后缀的文件。");
+            } else {
+                cropper = $('.imageBox').cropbox(options);
+            }
+        }
+        var ff = this.files[0];
+        options['name'] = ff.name
+        reader.readAsDataURL(this.files[0]);
+    })
+    
+	$('#btnCrop').on('click', function(){
+		var img = cropper.getDataURL();
+		$('.cropped').html('');
+		$('.cropped').append('<img src="'+img+'" align="absmiddle" style="width:64px;margin-top:4px;border-radius:64px;box-shadow:0px 0px 12px #7E7E7E;" ><p>64px*64px</p>');
+		$('.cropped').append('<img src="'+img+'" align="absmiddle" style="width:128px;margin-top:4px;border-radius:128px;box-shadow:0px 0px 12px #7E7E7E;"><p>128px*128px</p>');
+		$('.cropped').append('<img src="'+img+'" align="absmiddle" style="width:180px;margin-top:4px;border-radius:180px;box-shadow:0px 0px 12px #7E7E7E;"><p>180px*180px</p>');
+	})
+	
+	$('#btnZoomIn').on('click', function(){
+		cropper.zoomIn();
+	})
+	
+	$('#btnZoomOut').on('click', function(){
+		cropper.zoomOut();
+	})
+});
+
+function submitHandler() {
+    var img = cropper.getBlob();
+    var formdata = new FormData();
+    formdata.append("avatarfile", img,cropper.options.name);
+   // formdata.append("filename", 'blob.jpg');
+    $.ajax({
+        url: ctx + "userInfo/updateAvatar",
+        data: formdata,
+        type: "post",
+        processData: false,
+        contentType: false,
+        success: function(result) {
+        	$.operate.saveSuccess(result);
+        }
+    })
+}
+</script>
+</body>
+</html>

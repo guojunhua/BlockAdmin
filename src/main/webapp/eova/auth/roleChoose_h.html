@@ -1,0 +1,266 @@
+<%layout("/eova/layout/default_h.html",{'title' : '角色权限设置'}){%>
+<script type="text/javascript" src="${STATIC!}/ui/js/template.js"></script>
+
+	<link href="${CDN!STATIC!}/ui_h/ajax/libs/bootstrap-treetable1.0/bootstrap-treetable.css" rel="stylesheet"/>
+	<script src="${CDN!STATIC!}/ui_h/ajax/libs/bootstrap-treetable1.0/bootstrap-treetable.js"></script>
+<!-- 	<script src="/ui_h/ajax/libs/bootstrap-treetable/bootstrap-treetable.js"></script> -->
+<!-- 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/icheck-bootstrap@3.0.1/icheck-bootstrap.min.css" /> -->
+<body class="gray-bg">
+
+
+
+	<div class="container-div">
+		<div class="row">
+			<div class="col-sm-12 search-collapse">
+				<div class="row">
+            <div class="col-sm-12">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>继承角色 <small>将继承角色权限</small></h5>
+                        <div class="ibox-tools">
+                        </div>
+                    </div>
+                    <div class="ibox-content">
+						<div class="col-sm-12">
+						
+		
+								<%for(x in roles){%> 
+								
+								<label class="checkbox-inline check-box"><input type="checkbox" name="extends" value="${x.id}" > ${x.name}</label>
+
+<!-- 									<div class="checkbox-inline icheck-primary"><input type="checkbox" group='role' name="extends"  value="${x.id}" id="role_${x.id}"/><label for="role_${x.id}">${x.name}</label></div> -->
+								<%}%>
+							
+							
+						
+						</div>
+						<br>
+                    </div>
+                </div>
+            </div>
+        </div>
+			</div>
+			
+			
+			
+                
+            <div class="btn-group-sm" id="toolbar" role="group">
+		        <a class="btn btn-success choiceall" >
+                    <i class="fa fa-plus"></i> 全选
+                </a>
+                <a class="btn btn-primary cancelall" >
+		            <i class="fa fa-edit"></i> 取消全部
+		        </a>
+                
+	        </div>
+       		 <div class="col-sm-12 select-table table-striped">
+	            <table id="bootstrap-tree-table" data-classes="table table-hover table-condensed"></table>
+	        </div>
+	        
+	          
+	        
+	    </div>
+	    
+	     <div class="row bb_form_bn" >
+			        <div class="col-sm-offset-5 col-sm-10">
+			            <button type="button" class="btn btn-sm btn-primary" onclick="submitHandler()"><i class="fa fa-check"></i>保 存</button>&nbsp;
+			            <button type="button" class="btn btn-sm btn-danger" onclick="closeItem()"><i class="fa fa-reply-all"></i>关 闭 </button>
+			        </div>
+		</div>
+	</div>
+
+
+	<script>
+		
+	function submitHandler(index, layero) {
+		
+		var url = "/auth/roleChoose/" + ${rid};
+	    var ids=[];
+	    $("input[group^='role_button_']").each(function(){
+	        if(true == $(this).is(':checked')){
+	            ids.push($(this).val());
+	        }
+	    });
+
+	    var o = {
+				'checks': ids.join(",")
+		};
+		
+		$.post(url, o, function(result) {
+			$.operate.successCallback(result);
+		}, 'json');
+		
+	}
+
+		$(function() {
+		    var options = {
+		    		rootIdValue:0,
+		        code: "id",
+		        parentCode: "parent_id",
+		        uniqueId: "id",
+		        url: ctx + "auth/getFunJson",
+		        createUrl: ctx + "/add/{id}",
+		        updateUrl: ctx + "/edit/{id}",
+		        removeUrl: ctx + "/remove/{id}",
+		        modalName: "部门",
+		        
+		        columns: [                 
+		        {
+		                    field: 'selectItem', 
+		                    checkbox: true
+		                 },
+                 
+                 {
+		            field: 'name',
+		            title: '菜单',
+		            width:'250px',
+		            align: "center"
+		        },
+		        {
+					field : 'iconcls',//iconCls || iconskip
+					width:'80px',
+					title : '图标',
+					align: 'center',
+					formatter: function(value, item, index) {
+		            	return '<i class="'+value+'">';
+		            }
+						
+				},
+		        {
+		            field: 'btnid',
+		            title: '功能(双击单元格，全选/反选所有功能) ',
+		            align: "left",
+		            	formatter: function(value, item, index) {
+			            	if(value){
+			            		var group = item['id'];
+			            		var checkboxs = [];
+			            		var ids = value.split(",");
+			            		var names = item['btnname'].split(",");
+			            		var i = 0;
+			            		ids.forEach((id,index,array)=>{
+			            		    //执行代码
+			            			checkboxs[index] = '<div class="icheck-primary icheck-inline"><label class="checkbox-inline check-box"><input type="checkbox" name="'+group+'" value="'+id+'" id="'+id+'">'+names[index]+'</label></div>';
+			            			//checkboxs[index]='<div class="icheck-primary icheck-inline">    <input type="checkbox" id="chb1" />    <label for="chb1">Label 1</label></div>';
+			            		
+			            			checkboxs[index] = '<label class="checkbox-inline i-checks"><input type="checkbox"  name="'+group+'" value="'+id+'" id="'+id+'"> '+names[index]+'</label>';
+
+			            			//checkboxs[index] = '<label class="checkbox-inline i-checks"><input type="checkbox" value="option1">'++'</label>';
+			            			
+			            			//checkboxs[index] = ' <div class="checkbox check-box"><label> <input type="checkbox" value="" checked=""> <i></i> 选项2（选中）</label> </div>';
+			            			
+			            			
+			            			//checkboxs[index] = '<div class="icheck-primary"><input type="checkbox" checked id="primary" /><label for="primary">primary</label></div>';
+			            			
+			            			checkboxs[index] = '<div class="checkbox-inline icheck-primary"><input type="checkbox" group="role_button_'+group+'" name="'+group+'" value="'+id+'" id="'+id+'"/><label for="'+id+'">'+names[index]+'</label></div>';	
+			            		})
+			            		return checkboxs.join(" ");
+			            	}else
+			            		return value;
+		            	}
+			            	
+		            
+		        }],
+		        onDblClickRow:function (row,$element) {
+                    var id = row['id'];
+                    
+                    var groupCheckbox = $("input[group='role_button_"+id+"']") ;
+                    //console.log(groupCheckbox.length);
+                    //判断是选中还是取消 由第一个节点确定
+                    
+                    if(groupCheckbox.length >0){
+                    	 var isCheck = $(groupCheckbox[0]).is(':checked')
+                    	 for (i = 0; i < groupCheckbox.length; i++) {
+             			      var val = groupCheckbox[i].value;
+             			      if(isCheck)
+             			    	 $(groupCheckbox[i]).iCheck('uncheck'); 
+             			      else
+             			    	 $(groupCheckbox[i]).iCheck('check');
+             				}
+                    }  
+                    
+                },
+		        onLoadSuccess: function (res) {
+		        	chooseFun(${rid});
+		        }
+		    };
+		    $.treeTable.init(options);
+		});
+
+		$("input[name='extends']").on('ifChanged', function(event){ //ifCreated 事件应该在插件初始化之前绑定 
+			  //alert(event.type + ' callback'); 
+		
+			  var isCheck = false;
+			  if(true == $(this).is(':checked')){
+				  isCheck = true;
+			  }
+			  chooseFun( $(this).val(),isCheck);	
+		}); 
+		
+		$(".choiceall").click(function(){
+	    	var isCheck = true;
+	    	var groupCheckbox = $("input[group^='role_button_']") ;
+			for (i = 0; i < groupCheckbox.length; i++) {
+			      var val = groupCheckbox[i].value;
+			      if(isCheck)
+			    	  $(groupCheckbox[i]).iCheck('check');
+			      else
+			    	  $(groupCheckbox[i]).iCheck('uncheck');
+			}
+	    	return false;
+		});
+	    
+	    $(".cancelall").click(function(){
+	    	var isCheck = false;
+	    	var groupCheckbox = $("input[group^='role_button_']") ;
+			for (i = 0; i < groupCheckbox.length; i++) {
+			      var val = groupCheckbox[i].value;
+			      if(isCheck)
+			    	  $(groupCheckbox[i]).iCheck('check');
+			      else
+			    	  $(groupCheckbox[i]).iCheck('uncheck');
+			}
+	    	return false;
+		});
+		
+		
+		// 选中指定角色已授权功能
+		function chooseFun(rid, ck){
+			            			$.ajax({
+			            		        url: '/auth/getRoleFunJson/' + rid,
+			            		        dataType: 'json',
+			            		        success: function(data) {
+			            		            // 将返回数据转换为JSON对象
+			            		        	var list = eval(data);
+			            		        	var isCheck = true;
+			            		    		if(ck != null){isCheck = ck;}
+			            		    		console.log("方式："+isCheck);
+
+			            		    		//var groupCheckbox = $("input[name='funBtn']");
+			            		    		var groupCheckbox = $("input[group^='role_button_']") ;
+			            		    		for (i = 0; i < groupCheckbox.length; i++) {
+			            		    		      var val = groupCheckbox[i].value;
+			            		    		    	  for(j = 0; j < list.length; j++){
+			            		    		    		  if(list[j] == val){
+			            		    		    			  
+			            		    		    			  if(isCheck)
+			            		    		    			  	  $(groupCheckbox[i]).iCheck('check');
+			            		    		    			  else
+			            		    		    				  $(groupCheckbox[i]).iCheck('uncheck');
+			            		    		    			  break;
+			            		    		    		  }
+			            		    		    		  
+			            		    		    	  }   
+			            		    		}
+
+			            		        }
+			            		    });
+			}
+		
+</script>
+</body>
+
+
+
+
+
+<%}%>

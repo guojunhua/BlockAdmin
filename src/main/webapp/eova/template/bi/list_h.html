@@ -1,0 +1,94 @@
+<%layout("/eova/layout/default_h.html",{'title' : '图形报表'}){
+//var token = accessToken;
+var id = reportId;
+var domainUrl = domain;
+
+//http://127.0.0.1:37799/webroot/decision/v5/design/report/fdb1c4c1ee2644018d9d9ec645f4541b/view
+//var url = domainUrl+"/v5/design/report/"+id+"/view?fine_auth_token="+token;
+
+var url = domainUrl+"/v5/design/report/"+id+"/view";
+
+%>
+
+<body class="gray-bg">
+	
+	<div class="container-div">
+		<div class="row">
+	
+		
+			
+			
+	 		
+	 		<div class="col-sm-12 select-table table-striped">
+				<div class="bootstrap-table">
+
+					<div class="embed-responsive embed-responsive-16by9 fixed-table-container">
+				  	   <iframe  class="embed-responsive-item" src=""></iframe>
+					<!--   <iframe id="show" class="embed-responsive-item" src="" allowtransparency="true" style="border: 0; width: 100%; height: 96%;" frameborder="0"></iframe>
+					  <iframe id="print" style="height: 0;width: 0"></iframe> -->
+					</div>
+            
+				</div>
+			</div>
+	 	
+    	</div>
+    </div>
+</body>
+
+<script type="text/javascript">
+		
+	function loginFR(callback) {
+	    var username = "${acc!}";
+	    var password = "${psw!}";
+	    jQuery.ajax({
+	       url:  "${domainUrl!}/login/cross/domain?fine_username=${acc!}&fine_password=${psw!}&validity=-1",
+	       type: "GET",
+	       dataType:"jsonp",
+	       timeout:10000,
+	       success:function(data) {
+	          //alert(JSON.stringify(data));
+	          if (data.status === "success") {
+	             //alert("successful!");
+	          } else if (data.status === "fail"){
+	             //alert("login fail!");
+	          }
+	          callback && callback(data.accessToken);
+	          },
+	          error:function(){
+	             //alert("login error!");
+	        }
+	    });
+	  }       
+	  
+	function frameFresh() {
+		 $('iframe').attr('src','${url!}');
+	}
+	
+	
+	// 获取模板列表方法
+	function GetList(token) {
+	    var i=0;
+	    jQuery.ajax({
+	        url:  "${domainUrl!}/v5/api/dashboard/user/info?op=api&cmd=get_all_reports_data&fine_auth_token=" + token,
+	        type: "GET",
+	        timeout: 10000,
+	        dataType: "jsonp",
+	        success:function(res) {
+	            for(;i < res.data.dashboards.length;i++) {
+	                document.write(JSON.stringify(res.data.dashboards[i].name)+"<br>");
+	            }
+	        },
+	        error:function(XMLHttpRequest,textStatus,errorThrown){
+	            alert(XMLHttpRequest+"/"+textStatus+"/"+errorThrown);
+	        }
+	    });
+	 }
+	   
+	
+		$(function(){
+			loginFR(frameFresh);	
+		});
+		 
+</script>
+<script type="text/javascript" src="${STATIC!}/ui/js/template.js"></script>
+<%}%>

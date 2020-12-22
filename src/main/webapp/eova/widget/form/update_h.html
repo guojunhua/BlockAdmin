@@ -1,0 +1,53 @@
+<%var body = {
+	var formId = 'updateForm' + object.code;
+	var url = '/form/doUpdate/' + object.code;
+%>
+
+<body>
+<div class="wrapper wrapper-content animated fadeInRight ibox-content">
+<#form_h id="${formId}" type="update" objectCode="${object.code}" data="${record!}" object="${object}" fixed="${fixed!}" />
+</div>
+
+
+
+<div class="row bb_form_bn" >
+        <div class="col-sm-offset-5 col-sm-10">
+            <button type="button" class="btn btn-sm btn-primary" onclick="submitHandler()"><i class="fa fa-check"></i>保 存</button>&nbsp;
+            <button type="button" class="btn btn-sm btn-danger" onclick="closeItem()"><i class="fa fa-reply-all"></i>关 闭 </button>
+        </div>
+</div>
+<%if(session.user.isAdmin){// 仅超级管理员可见%>
+	    <div class="form-group " >
+	    	<br/>
+	        <div class="col-sm-offset-5 col-sm-10">
+	            <#design_button_h objectCode="${object.code}" formType="${VIEW_FORM!(PAGE_TYPE+'Form')}" />
+	            <br><br>
+	        </div>
+	    </div> 						
+	<%}%>
+
+<%if(!isEmpty(object.diy_js!)){%>
+<script type="text/javascript" src="${object.diy_js}"></script>
+<%}%>
+</body>
+
+<script type="text/javascript">
+function submitHandler(index, layero) {
+	//alert('tijiao');
+	//$("#${formId}").submit();
+	   if ($.validate.form()) {
+		 	//var sHTML = $('.summernote').summernote('code');
+			//$("#noticeContent").val(sHTML);
+			var frameName = window.name;//如果是tab iframe则名称模式： bb_tab_X
+			if(frameName.startsWith("bb_tab_"))
+				$.operate.saveTab("${url}", $('#${formId}').serialize());
+			else
+				$.operate.save("${url}", $('#${formId}').serialize());
+     }  
+}
+
+$().ready(function() {
+	//$.validate.start("${url}",'${formId}'); 
+});
+</script>
+<%};include("/eova/layout/default_form_h.html",{'title' : '编辑' + object.name, 'layoutContent' : body, 'isEditor' : true,'type':'update'}){}%>

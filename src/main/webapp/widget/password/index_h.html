@@ -1,0 +1,21 @@
+<%
+var verify = "";
+if(isTrue(isNoN!) ){
+	verify = "required=true";
+}
+if(!isEmpty(validator!)){
+	if(verify != ''){
+		verify += ';';
+	}
+	verify = verify + validator!;
+}
+
+var disabled="";
+if(isTrue(isReadonly!) ||isTrue(view!)){
+	disabled = 'readonly';
+	verify = '';
+}
+
+value = isEmpty( value! ) ? defaultValue!:value!;
+%>
+<input type="password" id="${name}" name="${name}" value="${value!}" bb-verify="${verify!}" placeholder="${placeholder!}" autocomplete="off" class="form-control" ${disabled!} ${strutil.replace(verify!,';',' ')}>

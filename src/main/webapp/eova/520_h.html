@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+
+    <title>${APP.name} - 520</title>
+    
+    <meta name="keywords" content="${APP.keywords}">
+    <meta name="description" content="${APP.description}">
+    <%include("/eova/include_h.html"){}%>
+    
+
+</head>
+
+<body class="gray-bg">
+
+
+    <div class="middle-box text-center animated fadeInDown">
+        <h1>500</h1>
+        <h3 class="font-bold">简单部署笔记</h3>
+
+        <div class="error-desc">
+正确的启动方法：
+1、com.RunEovaOSS 运行main
+2、pom.xml 右键run-as：  maven-install，将打包好的war文件部署在tomcat root下
+
+PS:建议使用80端口(其它端口也可以)，不建议用localhost访问
+
+我们为什么这样做?基于简单的原则：
+积木为了简单方便的解决路径问题，直接从根目录开始计算路径，没有繁琐的在各处都添加（项目名+端口）。
+如果有同学想同时运行多个工程，可以使用多个端口号起服务即可。
+正式环境一般都是这么玩的，JFinal也是这么玩的，如果有不得已的原因需要带项目名，请手工修改之。
+
+友情提示：
+JFinal快速开发平台积木群:818129789
+        </div>
+    </div>
+
+   
+
+</body>
+
+</html>

@@ -1,0 +1,40 @@
+<html>
+<head>
+	<meta charset="UTF-8"/>
+	<link href="${CDN!STATIC!}/ui_h/css/bootstrap.min.css" rel="stylesheet"/>
+    <script src="${CDN!STATIC!}/ui_h/js/jquery.min.js"></script>
+	<script src="${CDN!STATIC!}/ui_h/js/bootstrap.min.js"></script>
+	
+	<script type="text/javascript" src="${STATIC!}/ui/js/common.js"></script>
+	<!--设置页面的宽度随着使用者的设备变化二变化 -->
+	<meta name="viewport" content="width=device-width,initial-scal=1">
+</head>
+<body>
+	<div class="container">
+		<div class="row">
+			<div class="col-md-12 ">
+			
+				<#form_h id="${'detailForm' + object.code}" type="detailSimple" objectCode="${object.code}" data="${record!}" fixed="${fixed!}"  object="${object}" view="true" />
+				
+			</div>
+		</div>	
+	<div>
+</body>
+</html>
+<script type="text/javascript">
+$(function(){
+	// 禁用表单，注销事件，仅供查看
+	$(document).ready(function(){
+		$(this).find('input,textarea,select').attr('disabled','');
+		$(this).find('input,i,div').unbind();
+		
+		//$(this).find('myinput').select2("enabled",false);
+		
+		
+	});
+});
+
+
+
+
+</script>

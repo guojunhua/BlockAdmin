@@ -1,0 +1,86 @@
+<%layout("/eova/layout/default_h.html",{'title' : '积木初始数据库配置第一步'}){%>
+<script type="text/javascript">
+
+	// 禁止登录页内嵌
+	if (window != top){
+		parent.location.href = location.href; 
+	}
+	
+	
+	
+</script>
+<style>
+
+        .login-page {
+            background-image: url("http://h.bblocks.cn/ui_h/img/login-background.jpg");
+            background-size: cover;
+        }
+
+        .form-group {
+            text-align: left;
+        }
+
+        .login-box {
+            margin: 2% auto;
+            width: 660px;
+            min-height: 600px;
+            padding: 0;
+        }
+
+        .page-header {
+            margin: 50px 0 30px 0;
+            font-size: 16px;
+            color: #999;
+            text-align: left;
+        }
+		.login-box-body{
+		background: #fff;
+	    padding: 20px;
+	    border-top: 0;
+	    color: #666;
+		}
+
+    </style>
+<body class="hold-transition login-page">
+	
+	<div class="row">
+    <div class="login-box text-center">
+        <div class="login-box-body">
+
+<div class="form-horizontal form-setting" >
+    <div class="form-group">
+
+        <div class="col-sm-12">
+            欢迎使用积木。在开始前，积木需要您提供如下信息。<br/> <br/>
+            1、数据库名<br/>
+            2、数据库用户名<br/>
+            3、数据库密码<br/>
+            4、数据库主机<br/> 
+            5、其他的配置项(待定)<br/><br/>
+
+            我们会使用这些信息来创建一个名为 jdbc.config 的数据库信息文件。
+            如果自动创建未能成功，不用担心，您可以在文本编辑器中打开 WEB-INF/classes/jdbc.config，填入数据库信息即可。 <br/> <br/>
+            绝大多数时候，您的网站服务商会给您这些信息。如果您没有这些信息，在继续安装积木快速开发之前您将需要联系他们。
+
+            <br/> <br/>
+            如果您准备好了，那么进入下一步， 若需要更多帮助，您可以请访问<a href="https://www.showdoc.cc/771180572609582?page_id=4279235753210245" target="_blank">积木官方文档</a>或者加入官方QQ群： <a href="//shang.qq.com/wpa/qunwpa?idkey=54022a26ee29e2ed58ab95091a63918e399897ae5cf749526c8ac4191672ca76" target="_blank">818129789</a> 获取。
+            <br/> <br/>
+        </div>
+
+    </div>
+
+
+    <div class="row">
+        <div class="col-xs-offset-9 col-xs-3 " style="padding-top: 15px">
+            <a href="/initStepTwo" class="btn btn-primary btn-block btn-flat"> 下一步</a>
+        </div>
+    </div>
+
+</div>
+
+        </div>
+    </div>
+</div>
+	
+</body>
+<%}%>

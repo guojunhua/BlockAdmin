@@ -1,0 +1,73 @@
+<%layout("/eova/layout/default_h.html",{'title' : object.name + '列表'}){%>
+<body class="gray-bg">
+	<div class="container-div">
+		<!-- <div class="row">
+			<div class="col-sm-12 search-collapse">
+				<form id="dept-form">
+					<div class="select-list">
+						<ul>
+							<li>
+								部门名称：<input type="text" name="deptName"/>
+							</li>
+							<li>
+								部门状态：<select name="status">
+									<option value="">所有</option>
+									<option value="0">正常</option>
+									<option value="1">停用</option>
+								</select>
+							</li>
+							<li>
+								<a class="btn btn-primary btn-rounded btn-sm" onclick="$.treeTable.search()"><i class="fa fa-search"></i>&nbsp;搜索</a>
+								<a class="btn btn-warning btn-rounded btn-sm" onclick="$.form.reset()"><i class="fa fa-refresh"></i>&nbsp;重置</a>
+							</li>
+						</ul>
+					</div>
+				</form>
+			</div> -->
+            <#query_h id="form_${object.id}" objectCode="${object.code}" object="${object}"  />    
+           	
+           	<%if(isEmpty(mode!)){//默认得才有菜单按钮%>
+			<div class="btn-group-sm" id="toolbar_${object.id}" role="group">
+	
+				  <%for(btn in btnList){
+				  try{%>
+					 <%include(btn.ui,{'menu': menu, 'object':object, 'button': btn, 'gridId': 'grid','queryId':'queryForm'}){}%>
+				  <%}catch(error){%>
+				  <script type="text/javascript">
+				  layui.use(['layer'], function(){ layer.alert("按钮 '${btn.name}' 未能加载,请联系管理员.", {icon: 2});});
+				  </script>
+				  <%}}%>
+			  
+	            <% debug(session.user!);debug(object!); // 仅超级管理员可见%>
+        						<%if(session.user.isAdmin){%>
+        						<%include("/eova/button/btn/quick_h.html",{'menu': menu, 'object':object, 'queryId':'queryForm', 'parentId': 'grid'}){}%>
+        						<%include("/eova/button/btn/quick_objectFieldAuth_h.html",{'menu': menu, 'object':object, 'queryId':'queryForm', 'parentId': 'grid'}){}%>
+        						<%include("/eova/button/btn/quick_obj_h.html",{'menu': menu, 'object':object, 'queryId':'queryForm', 'parentId': 'grid'}){}%>
+				<%}%>
+	       
+	            
+	            
+            </div>
+			<%}%>
+           	
+       		 <div class="col-sm-12 select-table table-striped">
+	            <#treegrid_h id="treegrid_${object.id}" objectCode="${object.code}" toolbar="gridToolbar" toolbar="toolbar_${object.id}" menuCode="${menu.code}" tree="${menu.config.tree}" /> 
+	        </div>
+	    </div>
+	</div>
+	
+	
+
+<script>
+function refresh(){
+	$.treeTable.search();
+}
+</script>
+</body>
+<%if(!isEmpty(menu.diy_js!)){%>
+<script type="text/javascript" src="${menu.diy_js}"></script>
+<%}%>
+<%if(!isEmpty(object.diy_js!)){%>
+<script type="text/javascript" src="${object.diy_js}"></script>
+<%}%>
+<%}%>

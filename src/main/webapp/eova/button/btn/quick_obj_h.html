@@ -1,0 +1,8 @@
+<%
+
+if(object! != null){
+%>
+ <a class="btn btn-success" onclick="$.modal.openTab('${object.name!}编辑元对象' , '/master_slave_grid/list/eova_object?template=eova&query_exact_code=${object.code!}');">
+	                <i class="fa fa-pencil"></i> 编辑元对象
+</a>
+<% } %>

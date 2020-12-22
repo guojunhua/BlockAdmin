@@ -1,0 +1,529 @@
+<%layout("/eova/layout/default_h.html",{'title' : '积木Echarts参数设置'}){%>
+
+<style type="text/css">
+.left-part{position:absolute;left:0;top:0;width:40%;height:100%;z-index:1;}
+.btn-wrap{background:#f3f3f3;text-align:right;position:relative;z-index:1;box-shadow:0 5px 10px #e8e3e3;}
+.right-part{position:absolute;right:0;top:0;background:#f3f3f3!important;width:60%;height:100%;}
+#codeEditor {margin: 0;height:100%;width:100%;border-right:1px solid #ddd;}
+</style>
+
+
+<body style="min-height: 660px; cursor: auto;" class="gray-bg">
+
+	<div class="wrapper wrapper-content animated fadeInRight">
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>Echarts参数</h5>
+                        <div class="ibox-tools">
+                        	<!-- 运行 -->
+                          
+	                          <a class="btn btn-white btn-run-echarts">
+	                            <i class="fa fa-arrow-circle-o-right" aria-hidden="true"></i> 
+	                       	  </a>
+                        </div>
+                    </div>
+                    <div class="ibox-content">
+                       <!--  <pre id="codeEditor" class="ace_editor" style="min-height:420px">
+						 <s:textarea class="ace_text-input"   cssStyle="width:97.5%;height:420px;"/>
+						</pre> -->
+						 <div id="codeEditor" style="min-height:450px"> </div>
+                    </div>
+                   
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>效果</h5>
+                        
+                    </div>
+                    <div class="ibox-content">
+                        <div id="main"  style="width:100%;height:450px;"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>Sql参数</h5>
+                        <div class="ibox-tools">
+                        	<!-- 运行 -->
+                          
+	                          <a class="btn btn-white btn-run-sql">
+	                            <i class="fa fa-arrow-circle-o-right" aria-hidden="true"></i> 
+	                       	  </a>
+                        </div>
+                    </div>
+                    <div class="ibox-content">
+                       <!--  <pre id="codeEditor" class="ace_editor" style="min-height:420px">
+						 <s:textarea class="ace_text-input"   cssStyle="width:97.5%;height:420px;"/>
+						</pre> -->
+						 <div id="sqlEditor" style="min-height:250px"> </div>
+                    </div>
+                   
+                </div>
+            </div>
+            
+            <div class="col-sm-6">
+               <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>SQL执行数据-JSON</h5>
+                        
+                    </div>
+                    <div class="ibox-content">
+                        <div id="jsonResult"  style="width:100%;height:450px;"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+
+    </div>
+</body>
+
+
+
+<script src="${CDN!STATIC!}/plugins/echarts/echarts.min.js"></script>
+
+<!-- 代码编辑ace.js   远程 https://pagecdn.com/lib/ace  -->
+<script src="${CDN!STATIC!}/plugins/ace/1.4.12/ace.js" type="text/javascript" charset="utf-8"></script>
+<script src="${CDN!STATIC!}/plugins/ace/1.4.12/ext-language_tools.js"></script>
+
+<!-- 防抖函数 debounce -->
+<script src="${CDN!STATIC!}/plugins/lodash/4.17.20/lodash.js"></script>
+
+<script type="text/javascript">
+	
+	var code = "${chartCode!}";
+	var sqlOK = false;//当执行未成功的时候，需要保存且为sql模式
+//var _= require('lodash');
+	//初始化代码编辑器
+	function initJsEditor(){
+		//获取控件   id ：codeEditor
+		let editor = ace.edit("codeEditor");
+		//设置风格和语言（更多风格和语言，请到github上相应目录查看）
+		theme = "monokai";
+		theme = "terminal";
+		
+		theme = "monokai";
+		//语言
+		language = "javascript";
+		//editor.setTheme("ace/theme/" + theme);
+		editor.session.setMode("ace/mode/" + language);
+		//字体大小
+		editor.setFontSize(15);
+		//设置只读（true时只读，用于展示代码）
+		editor.setReadOnly(false);
+		//自动换行,设置为off关闭
+		editor.setOption("wrap", "free");
+		//启用提示菜单
+		ace.require("ace/ext/language_tools");
+		editor.setOptions({
+			 enableBasicAutocompletion: true,
+             enableSnippets: true,
+             enableLiveAutocompletion: true,
+             autoScrollEditorIntoView: true
+		});
+		
+		return editor;
+	}
+	
+	function initSqlEditor(){
+		let editor = ace.edit("sqlEditor");
+	    //editor.setTheme("ace/theme/monokai"); //主题
+	    editor.getSession().setMode("ace/mode/sql"); // 语言高亮
+	    // editor.setReadOnly(false);//设置只读（true时只读，用于展示代码）
+	    //自动换行,设置为off关闭
+	    editor.setOption("wrap", "free");
+	    //以下部分是设置输入代码提示的
+	    editor.setOptions({
+	        enableBasicAutocompletion: true,
+	        enableSnippets: true,
+	        enableLiveAutocompletion: true
+	    });
+	    editor.getSession().setUseWrapMode(true); //支持代码折叠
+	    //editor.getSession().setMode(&#39;ace/mode/javascript&#39;); //设置语言模式
+	    editor.selection.getCursor(); //获取光标所在行或列
+	    //editor.gotoLine(lineNumber); //跳转到行
+	    editor.session.getLength(); //获取总行数
+	    // editor.insert("Something cool");
+	    editor.getSession().setUseSoftTabs(true);
+		
+		return editor;
+	}
+	
+	function initJsonEditor(){
+		let editor = ace.edit("jsonResult");
+	    //editor.setTheme("ace/theme/monokai"); //主题
+	    editor.getSession().setMode("ace/mode/json"); // 语言高亮
+	    // editor.setReadOnly(false);//设置只读（true时只读，用于展示代码）
+	    //自动换行,设置为off关闭
+	    editor.setOption("wrap", "free");
+	    //以下部分是设置输入代码提示的
+	    editor.setOptions({
+	        enableBasicAutocompletion: true,
+	        enableSnippets: true,
+	        enableLiveAutocompletion: true
+	    });
+	    editor.getSession().setUseWrapMode(true); //支持代码折叠
+	    //editor.getSession().setMode(&#39;ace/mode/javascript&#39;); //设置语言模式
+	    editor.selection.getCursor(); //获取光标所在行或列
+	    //editor.gotoLine(lineNumber); //跳转到行
+	    editor.session.getLength(); //获取总行数
+	    // editor.insert("Something cool");
+	    editor.getSession().setUseSoftTabs(true);
+		
+		return editor;
+	}
+	
+	var jseditor = initJsEditor();
+	var sqleditor = initSqlEditor();
+	var jsoneditor = initJsonEditor();
+	
+	 var runDebounce = _.debounce(function () {
+	        if(!hasEditorError()) {
+	        	let codeopt = parent.getOptByCode(code);
+	   			//codeopt.opt.content = jseditor.getValue();
+	        	saveChart();
+	        	
+	        	changeChart();
+	        }
+	    }, 500, {
+			  'leading': true,
+			  'trailing': false
+			});
+	 
+	 
+	
+	 
+	
+		
+	 	// 更改图表
+	    function changeChart() {
+	 		
+	    	if(hasEditorError()) 
+	    		return;
+	    	if(hasEditorError(sqleditor)) 
+	    		return;
+	    	
+	      try{
+	    	var jsValue = jseditor.getValue();
+	        //var option= eval(a);
+	        //var myChart = echarts.init(document.getElementById('main'));
+	        //myChart.setOption(option);
+	        
+	        let codeopt = parent.getOptByCode(code);
+	        codeopt.opt.content = jsValue;
+	        
+	        $.initChartsByOptData('main',codeopt.opt,code);
+	      }catch(e){
+	        console.log(e);
+	        
+	        $.modal.msgError('编辑有误,启动Echarts失败!')
+	      }
+	       
+	    }
+	    
+	 // 判断是否编辑器有误
+    function hasEditorError(editor) {
+		if(editor == null)
+			editor = jseditor;
+        var annotations = editor.getSession().getAnnotations();
+        for (var aid = 0, alen = annotations.length; aid < alen; ++aid) {
+            if (annotations[aid].type === 'error') {
+                return true;
+            }
+        }
+        return false;
+    }
+	 
+	 
+	 function init(){
+		 if(code == '')
+			 layer.alert('编辑器启动失败，未检出到来源编号!', {icon: 2});
+		 //值从父节点提取，
+		 let codeopt = parent.getOptByCode(code);
+		 
+		 
+		 jseditor.setValue(codeopt.opt.content);
+		 
+		 if(codeopt.opt.data_type == 1){
+			 sqleditor.setValue(codeopt.opt.data_sql);
+		 }
+		 //sqleditor.setValue();
+		 
+		 if(codeopt.opt.data_type==2){
+			 runDebounce();
+		 }else{
+			 trySqlData();
+		 }
+         //
+         
+         
+         
+         // 编辑器上的内容改变时触发
+ 	   	 jseditor.on('change', function() {
+ 	        runDebounce()            
+ 	    	});
+         
+ 	   	//sqleditor.setValue("select * from t_user u where u.id=12;");
+ 	   	
+ 	   	//sqleditor.setValue("select * from t_user u where u.id=12;");
+	 }
+	 
+    // 请求js配置项
+    /**
+    $.ajax('/getPieOpt', {
+          dataType: 'text',
+          success: function (data) {
+              editor.setValue(data);
+              runDebounce()     
+              // 编辑器上的内容改变时触发
+      	    editor.on('change', function() {
+      	        runDebounce()            
+      	    });
+          }
+      }).fail(function () {
+          console.log('加载图表数据失败！');
+      });
+    **/
+	 
+    $(".btn-run-echarts").click(function() {
+    	if(!hasEditorError()) {
+   			//let codeopt = parent.getOptByCode(code);
+   			//codeopt.opt.content = jseditor.getValue();
+   			
+    		saveChart();
+    	}
+    		
+    	
+    	changeChart();
+	});
+    
+    init();
+    
+
+    
+    //尝试执行sql，查看结果
+    function trySqlData(){
+		jsoneditor.setValue('');
+		
+		sqlOK = false;
+    	
+    	let sql = sqleditor.getValue();
+    	let data = {"sql":sql}
+    	$.ajax('/dashboard/tryQuerySql', {
+    		contentType: "application/json;charset=utf-8",
+            data:JSON.stringify(data),
+            dataType: "json",
+            type: "post",
+            success: function (data) {
+            	if(data.status == 200){
+            		sqlOK = true;
+            		//jsoneditor.setValue(JSON.stringify(data.data));
+            		jsoneditor.setValue(JSON.stringify(data.data, null, '\t'));
+            		
+            		//把sql设置进去
+            		//let codeopt = parent.getOptByCode(code);
+            		
+            		//codeopt.opt.content=jseditor.getValue();
+            		//codeopt.opt.data_type=1;
+            		//codeopt.opt.data_sql=sql;
+            		
+            		saveChart();
+            		
+            		
+            	}else{
+            		$.modal.msgError('SQL执行失败：'+data.data)
+            	}
+            	
+            	
+            }
+        }).fail(function () {
+            console.log('提取sql数据失败！');
+        });
+    }
+    
+    
+    function saveChart(){
+    	let codeopt = parent.getOptByCode(code);
+    	let sql = sqleditor.getValue();
+    	
+    	codeopt.opt.content=jseditor.getValue();
+    	
+    	
+    	 
+    	//debugger;
+    	 if (sqlOK) {
+    		codeopt.opt.data_type=1;
+     		codeopt.opt.data_sql=sql;
+    		
+    	}else{
+    		codeopt.opt.data_type=2;
+    	}
+    	
+		
+		
+    	$.ajax('/dashboard/saveChart/'+code, {
+    		contentType: "application/json;charset=utf-8",
+            data:JSON.stringify(codeopt.opt),
+            dataType: "json",
+            type: "post",
+            success: function (data) {
+            	
+            	console.log('保存chart'+data.status+"("+data.msg+")")
+            	
+            	changeChart();
+            }
+        })
+    	
+    }
+    
+    $(".btn-run-sql").click(function() {
+    	if(hasEditorError(sqleditor)) 
+    		return;
+    	trySqlData();
+	});
+    
+</script>
+
+<%}%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="title" content="LayoutIt! - Bootstrap可视化布局系统">
+<meta name="description" content="LayoutIt! 可拖放排序在线编辑的Bootstrap可视化布局系统">
+<meta name="keywords" content="可视化,布局,系统">
+<title>Bootstrap 可视化布局系统</title>
+
+<!-- Le styles -->
+<link href="/favicon.ico" rel="shortcut icon">
+ 	<link href="/ui_h/css/bootstrap.min.css" rel="stylesheet"/>
+	<link href="/ui_h/css/font-awesome.min.css" rel="stylesheet"/>
+	<!-- bootstrap-table 表格插件样式 -->
+	<link href="/ui_h/ajax/libs/bootstrap-table/bootstrap-table.min.css" rel="stylesheet"/>
+	<link href="/ui_h/ajax/libs/bootstrap-treetable1.0/bootstrap-treetable.css" rel="stylesheet"/>
+	<link href="/ui_h/css/animate.css" rel="stylesheet"/>
+	<link href="/ui_h/css/style.css" rel="stylesheet"/>
+	<link href="/ui_h/css/skins.css" rel="stylesheet"/>
+	<link href="/ui_h/bb/css/ry-ui.css" rel="stylesheet"/>
+<!--  	<link href="http://demo.ruoyi.vip/ajax/libs/jquery-ztree/3.5/css/metro/zTreeStyle.css" rel="stylesheet"/> -->
+
+<!--     <link href="/ui_h/ajax/libs/jquery-step/jquery.step.css" rel="stylesheet"/> -->
+ 	
+	<link href="/ui_h/ajax/libs/steps2.0/steps.css" rel="stylesheet"/>
+ 	
+    <!-- 全局js -->
+    <script src="/ui_h/js/jquery.min.js"></script>
+<!--     <script src="/ui_h/ajax/libs/fileinput/js/jquery.min.js"></script> -->
+	<script src="/ui_h/js/bootstrap.min.js"></script>
+	
+
+	<!-- bootstrap-table 表格插件 -->
+	<script src="/ui_h/ajax/libs/bootstrap-table/bootstrap-table.min.js"></script>
+	<script src="/ui_h/ajax/libs/bootstrap-table/locale/bootstrap-table-zh-CN.min.js"></script>
+	<script src="/ui_h/ajax/libs/bootstrap-table/extensions/mobile/bootstrap-table-mobile.js"></script>
+	<script src="/ui_h/ajax/libs/bootstrap-table/extensions/toolbar/bootstrap-table-toolbar.min.js"></script>
+	<script src="/ui_h/ajax/libs/bootstrap-table/extensions/columns/bootstrap-table-fixed-columns.js"></script>
+	<!-- jquery-validate 表单验证插件 -->
+	<script src="/ui_h/ajax/libs/validate/jquery.validate.js"></script>
+<!-- 	<script src="http://static.runoob.com/assets/jquery-validation-1.14.0/dist/jquery.validate.min.js"></script> -->
+	<script src="/ui_h/ajax/libs/validate/messages_zh.min.js"></script>
+	<script src="/ui_h/ajax/libs/validate/jquery.validate.extend.js"></script>
+	
+<!-- 	<script src="/ui_h/ajax/libs/validate/jquery.metadata.js"></script> -->
+	
+	<!-- bootstrap-treetable 表单树插件 -->
+<!-- 	<script src="/ui_h/ajax/libs/bootstrap-treetable/bootstrap-treetable.js"></script> -->
+	<script src="/ui_h/ajax/libs/bootstrap-treetable1.0/bootstrap-treetable.js"></script>
+	<!-- jquery-export 表格导出插件 -->
+	<script src="/ui_h/ajax/libs/bootstrap-table/extensions/export/bootstrap-table-export.js"></script>
+	<script src="/ui_h/ajax/libs/bootstrap-table/extensions/export/tableExport.js"></script>
+	<!-- 遮罩层 -->
+	<script src="/ui_h/ajax/libs/blockUI/jquery.blockUI.js"></script>
+    <script src="/ui_h/ajax/libs/iCheck/icheck.min.js"></script>
+	<script src="/ui_h/ajax/libs/layer/layer.min.js"></script>
+	<script src="/ui_h/ajax/libs/layui/layui.js"></script>
+	<script src="/ui_h/bb/js/common.js?v=4.1.0"></script>
+	<script src="/ui_h/bb/js/ry-ui.js?v=4.1.0"></script>
+<!--    <script src="/ui_h/ry-ui.js?v=4.1.0"></script>  -->
+    
+    
+    <link href="/ui_h/ajax/libs/iCheck/custom.css" rel="stylesheet"/>
+    <link href="/ui_h/ajax/libs/iCheck/icheck-bootstrap.min.css" rel="stylesheet"/>
+	
+ 	<link href="/ui_h/ajax/libs/select2/select2.css" rel="stylesheet"/>
+    <link href="/ui_h/ajax/libs/select2/select2-bootstrap.css" rel="stylesheet"/>
+
+    <link  href="/ui_h/ajax/libs/switchery/switchery.css" rel="stylesheet"/>
+    <!-- 富文本 summernote -->
+<!--     <link href="/ui_h/ajax/libs/summernote/summernote.css" rel="stylesheet"/> -->
+<!-- 	<link href="/ui_h/ajax/libs/summernote/summernote-bs3.css" rel="stylesheet"/> -->
+<!--  	<link href="/ui_h/css/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css" rel="stylesheet">-->    
+ 	<link href="/ui_h/ajax/libs/bootstrap-fileinput/fileinput.min.css" rel="stylesheet"/>    
+ 	
+<!--  	<link href="/ui_h/ajax/libs/fileinput/css/default.css" rel="stylesheet" type="text/css" > 
+	<link href="/ui_h/ajax/libs/fileinput/css/fileinput.css" rel="stylesheet" type="text/css" />	-->
+ 	
+	<link href="/ui_h/ajax/libs/treeview/bootstrap-treeview.min.css" rel="stylesheet"/>    
+	<link href="/ui_h/ajax/libs/jquery-ztree/3.5/css/metro/zTreeStyle.css" rel="stylesheet"/>
+	<link href="/ui_h/ajax/libs/datapicker/bootstrap-datetimepicker.min.css" rel="stylesheet"/>
+	
+	<!-- 输入框清除控件(和table冲突)  -->
+<!-- 	<link href="/ui_h/ajax/libs/pureClearButton/css/default.css" rel="stylesheet" type="text/css"> -->
+	
+    <!-- 开关  -->
+    <script src="/ui_h/ajax/libs/switchery/switchery.js" type="text/javascript"></script>
+    
+    <!-- 富文本 summernote 
+  	<script src="/ui_h/ajax/libs/summernote/summernote.min.js"></script>
+	<script src="/ui_h/ajax/libs/summernote/summernote-zh-CN.js"></script>-->
+	<!-- 文件上传(图片和文件) -->
+	<script src="/ui_h/ajax/libs/bootstrap-fileinput/fileinput.js"></script>
+	<script src="/ui_h/ajax/libs/bootstrap-fileinput/piexif.min.js"></script>
+    
+   <!--  <script src="/ui_h/ajax/libs/fileinput/js/fileinput.js" type="text/javascript"></script>
+    <script src="/ui_h/ajax/libs/fileinput/js/fileinput_locale_zh.js" type="text/javascript"></script> -->
+    
+    <script src="/ui_h/ajax/libs/select2/select2.js"></script>
+    
+    <!-- treeview -->
+	<script src="/ui_h/ajax/libs/treeview/bootstrap-treeview.min.js"></script>
+	<script src="/ui_h/ajax/libs/jquery-ztree/3.5/js/jquery.ztree.all-3.5.js"></script>
+	
+	<!-- datetimepicker -->
+	<script src="/ui_h/ajax/libs/datapicker/bootstrap-datetimepicker.min.js"></script>
+	
+	
+	<!-- 输入框清除控件  -->
+<!-- 	<script src="/ui_h/ajax/libs/pureClearButton/js/jquery.bootstrap-pureClearButton.js"></script> -->
+	
+	<!-- 进度按钮svg  -->
+	<script src="/ui_h/bb/js/process/iconfont.js"></script>
+	
+<!-- 	<script src="/ui_h/ajax/libs/jquery-step/jquery.step.min.js"></script> -->
+    <script src="/ui_h/ajax/libs/steps2.0/steps.js" rel="stylesheet"/></script>
+    
+    <!-- 老的api -->
+<script type="text/javascript" src="/ui/js/common.js"></script>
+<script type="text/javascript" src="/ui/js/string.js"></script>
+<script type="text/javascript" src="/ui2/src/layui.js"></script>
+<script type="text/javascript" src="/plugins/easyui/jquery.easyui.min.js"></script>
+<script type="text/javascript" src="/plugins/easyui/locale/easyui-lang-zh_CN.js"></script>
+<script type="text/javascript" src="/plugins/format/jsformat.js"></script>
+<!-- <script type="text/javascript" src="/ui/easy/easy.min.js"></script> -->
+<script type="text/javascript" src="/ui/eova/eova.min.js"></script>
+<script type="text/javascript" src="/ui/eova/src/eova.find.js"></script>
+
+
+</head>
+
+

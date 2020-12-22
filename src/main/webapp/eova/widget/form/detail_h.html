@@ -1,0 +1,58 @@
+<%var body = {
+	var formId = 'detailForm' + object.code;
+%>
+
+<body>
+
+<div class="wrapper wrapper-content animated fadeInRight ibox-content">
+<#form_h id="${formId}" type="detail" objectCode="${object.code}" data="${record!}" fixed="${fixed!}"  object="${object}" view="true" />
+</div>
+
+<div class="row bb_form_bn" >
+        <div class="col-sm-offset-5 col-sm-10">
+            <button type="button" class="btn btn-sm btn-danger" onclick="closeItem()"><i class="fa fa-reply-all"></i>关 闭 </button>
+        </div>
+</div>
+<%if(session.user != null && session.user.isAdmin!){// 仅超级管理员可见%>
+	    <div class="form-group " >
+	    	<br/>
+	        <div class="col-sm-offset-5 col-sm-10">
+	            <#design_button_h objectCode="${object.code}" formType="${VIEW_FORM!(PAGE_TYPE+'Form')}" />
+	            <br><br>
+	        </div>
+	    </div> 						
+	<%}%>
+<script type="text/javascript">
+$(function(){
+	// 禁用表单，注销事件，仅供查看
+	$(document).ready(function(){
+		$(this).find('input,textarea,select').attr('disabled','');
+		$(this).find('input,i,div').unbind();
+		
+		//$(this).find('myinput').select2("enabled",false);
+		
+		$("#select").select2("disable",true);
+		
+		 $('#myselect').select2('enable');
+		 
+		 $('.js-example-basic-single').select2({
+			  disabled: true
+			});
+		 
+		 $(".select2").siblings(".layui-form-select").hide();
+	});
+});
+
+var submitNow = function(data) {
+	var index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
+	parent.layer.close(index);
+};
+
+
+
+</script>
+<%if(!isEmpty(object.diy_js!)){%>
+<script type="text/javascript" src="${object.diy_js}"></script>
+<%}%>
+</body>
+<%};include("/eova/layout/default_form_h.html",{'title' : object.name + '详情', 'layoutContent' : body, 'isEditor' : true,'type':'detail'}){}%>
