@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>steps 步骤条、时间轴 | 樊小书生的博客</title>
+    <meta name="keywords" content="樊小书生的博客,steps 步骤条、时间轴">
+    <meta name="description" content="樊小书生的博客专注于web前端学习的分享">
+
+    <link rel="stylesheet" href="http://www.fxss5201.cn/project/css/hybrid.css">
+    <link rel="stylesheet" href="steps.css">
+
+   
+   
+    <script src="steps.js"></script>
+</head>
+<body>
+    <div class="layui-container">
+        <div id="steps1"></div>
+            <script>
+                var steps1 = steps({
+                    el: "#steps1",
+                    data: [
+                        { title: "步骤1", description: "111" },
+                        { title: "步骤2", description: "222" },
+                        { title: "步骤3", description: "desc步骤3步骤3" }
+                    ],
+                    active: 0,
+                    dataOrder: ["title", "line", "description"]
+                });
+            </script>
+    </div>
+       
+</body>
+</html>
