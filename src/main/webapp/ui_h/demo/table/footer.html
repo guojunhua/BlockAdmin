@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org" xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<head>
+		<%include("/eova/include_h.html"){}%>
+</head>
+<body class="gray-bg">
+     <div class="container-div">
+		<div class="row">
+			<div class="col-sm-12 select-table table-striped">
+				<table id="bootstrap-table"></table>
+			</div>
+		</div>
+	</div>
+
+    <script th:inline="javascript">
+        var prefix =  "/ui_h/demo/table/foot.json";
+  
+       var datas = [{"searchValue":null,"createBy":"admin","createTime":"2018-03-16 03:33:00","updateBy":null,"updateTime":null,"remark":"\u6B63\u5E38\u72B6\u6001","params":{},"dictCode":6,"dictSort":1,"dictLabel":"\u6B63\u5E38","dictValue":"0","dictType":"sys_normal_disable","cssClass":"","listClass":"primary","isDefault":"Y","status":"0","default":true},{"searchValue":null,"createBy":"admin","createTime":"2018-03-16 03:33:00","updateBy":null,"updateTime":null,"remark":"\u505C\u7528\u72B6\u6001","params":{},"dictCode":7,"dictSort":2,"dictLabel":"\u505C\u7528","dictValue":"1","dictType":"sys_normal_disable","cssClass":"","listClass":"danger","isDefault":"N","status":"0","default":false}];
+
+        $(function() {
+            var options = {
+                url: prefix ,
+		        showFooter: true,
+		        showSearch: false,
+		        showRefresh: false,
+		        showToggle: false,
+		        showColumns: false,
+		        singleSelect : true,
+                columns: [{
+		            checkbox: true
+		        },
+				{
+					field : 'userId', 
+					title : '用户ID'
+				},
+				{
+					field : 'userCode', 
+					title : '用户编号'
+				},
+				{
+					field : 'userName', 
+					title : '用户姓名'
+				},
+				{
+					field : 'userPhone', 
+					title : '用户手机'
+				},
+				{
+					field : 'userEmail', 
+					title : '用户邮箱'
+				},
+				{
+				    field : 'userBalance',
+				    title : '用户余额',
+				    footerFormatter:function (value) {
+				    	var sumBalance = 0;
+				        for (var i in value) {
+				        	sumBalance += parseFloat(value[i].userBalance);
+				        }
+				        return "总金额：" + sumBalance;
+				    }
+				},
+				{
+                    field: 'status',
+                    title: '用户状态',
+                    formatter: function(value, row, index) {
+                    	return $.table.selectDictLabel(datas, value);
+                    }
+                },
+		        {
+		            title: '操作',
+		            align: 'center',
+		            formatter: function(value, row, index) {
+		            	var actions = [];
+		            	actions.push('<a class="btn btn-success btn-xs" href="#"><i class="fa fa-edit"></i>编辑</a> ');
+                        actions.push('<a class="btn btn-danger btn-xs" href="#"><i class="fa fa-remove"></i>删除</a>');
+						return actions.join('');
+		            }
+		        }]
+            };
+            $.table.init(options);
+        });
+    </script>
+</body>
+</html>
